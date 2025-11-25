@@ -21,7 +21,7 @@ createInertiaApp({
 
         root.render(
             <StrictMode>
-                  <Toaster />
+                  <Toaster position='top-right'/>
                 <App {...props} />
             </StrictMode>,
         );

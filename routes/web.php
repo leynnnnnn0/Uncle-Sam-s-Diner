@@ -5,6 +5,7 @@ use App\Http\Controllers\Business\CustomerController;
 use App\Http\Controllers\Business\DashboardController;
 use App\Http\Controllers\Business\QRStudioController;
 use App\Http\Controllers\Business\IssueStampController;
+use App\Http\Controllers\Business\PerkClaimController;
 use App\Http\Controllers\Business\StampCodeController;
 use App\Http\Controllers\Customer\CustomerAuthController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
@@ -18,7 +19,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('business')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -29,6 +29,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/customers', CustomerController::class);
     Route::get('/issue-stamp', [IssueStampController::class, 'index']);
     Route::get('/stamp-codes', [StampCodeController::class, 'index']);
+
+
+    
+    Route::get('/perk-claims', [PerkClaimController::class, 'index'])->name('perk-claims.index');
+    Route::post('/perk-claims/{perkClaim}/redeem', [PerkClaimController::class, 'markAsRedeemed'])->name('perk-claims.redeem');
+    Route::post('/perk-claims/{perkClaim}/undo', [PerkClaimController::class, 'undoRedeem'])->name('perk-claims.undo');
+
 });
 
 });

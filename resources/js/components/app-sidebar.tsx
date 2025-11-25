@@ -27,6 +27,11 @@ const mainNavItems: NavItem[] = [
         href: '/business/issue-stamp',
         icon: StampIcon,
     },
+     {
+        title: 'Perk Claims',
+        href: '/business/perk-claims',
+        icon: StampIcon,
+    },
        {
         title: 'Stamp Codes',
         href: '/business/stamp-codes',
