@@ -175,7 +175,7 @@ export default function Register({ businesses, selectedBusiness }: RegisterProps
                                 Already have an account?{' '}
                                 <Link
                                     href={'/customer/login'}
-                                    className="font-semibold text-primary hover:underline"
+                                    className="font-semibold text-primary hover:underline bg-accent hover:bg-accent/70"
                                 >
                                     Sign in
                                 </Link>

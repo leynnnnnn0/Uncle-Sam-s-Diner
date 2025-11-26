@@ -20,9 +20,19 @@ class Business extends Model
         'contact_phone',
     ];
 
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
     public function loyaltyCards()
     {
         return $this->hasMany(LoyaltyCard::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 
     public function user()

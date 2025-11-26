@@ -10,7 +10,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
-
+import Logo from '../../../images/mainLogo.png';
 interface LoginProps {
     status?: string;
     canResetPassword: boolean;
@@ -32,7 +32,7 @@ export default function Login({
             <Form
                 {...store.form()}
                 resetOnSuccess={['password']}
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-6 "
             >
                 {({ processing, errors }) => (
                     <>
@@ -88,7 +88,7 @@ export default function Login({
 
                             <Button
                                 type="submit"
-                                className="mt-4 w-full"
+                                className="mt-4 w-full bg-accent hover:bg-accent/70"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"

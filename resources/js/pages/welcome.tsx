@@ -1,10 +1,29 @@
+
+
 import { useState, useEffect } from 'react';
-import { Phone, Mail, Menu, Award, Gift, Tag } from 'lucide-react';
+import { Phone, Mail, Menu, Award, Gift, Tag, ChevronDown, QrCode, BarChart3, Palette, Wifi, WifiOff, Headphones, LogIn } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import APP from '../../images/app.png';
+import LOGO from '../../images/mainLogo.png';
+import { router } from '@inertiajs/react';
 
 export default function Welcome() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('');
+    const [loginDialogOpen, setLoginDialogOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -14,8 +33,7 @@ export default function Welcome() {
                 setIsScrolled(window.scrollY > heroBottom - 100);
             }
 
-            // Detect active section
-            const sections = ['benefits', 'how-it-works', 'pricing'];
+            const sections = ['benefits', 'features', 'how-it-works', 'pricing', 'faq'];
             const scrollPosition = window.scrollY + 150;
 
             for (const sectionId of sections) {
@@ -51,6 +69,16 @@ export default function Welcome() {
         }
     };
 
+    const handleLoginChoice = (type : string) => {
+        console.log(`${type} login selected`);
+        setLoginDialogOpen(false);
+        if(type == "customer") {
+            router.visit('/customer/login');
+            return;
+        }
+        router.visit('/login');
+    };
+
     return (
         <div className="min-h-screen relative overflow-hidden bg-primary">
             {/* Header */}
@@ -59,8 +87,7 @@ export default function Welcome() {
             }`}>
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">STAMP</span>
-                        <span className="text-xs sm:text-sm px-2 py-1 sm:px-3 rounded-full font-semibold" style={{ backgroundColor: '#F4B942', color: '#333333' }}>BAYAN</span>
+                        <img src={LOGO} alt="logo" className='h-10 w-32'/>
                     </div>
 
                     <nav className={`hidden lg:flex items-center gap-4 xl:gap-8 transition-all duration-300 ${
@@ -77,6 +104,20 @@ export default function Welcome() {
                         >
                             BENEFITS
                             {activeSection === 'benefits' && (
+                                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"></span>
+                            )}
+                        </a>
+                        <a 
+                            href="#features" 
+                            onClick={(e) => scrollToSection(e, '#features')}
+                            className={`text-sm font-medium transition-all px-4 xl:px-5 py-2 whitespace-nowrap relative ${
+                                activeSection === 'features' 
+                                    ? 'text-white' 
+                                    : 'text-white/90 hover:text-white'
+                            }`}
+                        >
+                            FEATURES
+                            {activeSection === 'features' && (
                                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"></span>
                             )}
                         </a>
@@ -108,19 +149,76 @@ export default function Welcome() {
                                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"></span>
                             )}
                         </a>
+                        <a 
+                            href="#faq" 
+                            onClick={(e) => scrollToSection(e, '#faq')}
+                            className={`text-sm font-medium transition-all px-4 xl:px-5 py-2 whitespace-nowrap relative ${
+                                activeSection === 'faq' 
+                                    ? 'text-white' 
+                                    : 'text-white/90 hover:text-white'
+                            }`}
+                        >
+                            FAQ
+                            {activeSection === 'faq' && (
+                                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"></span>
+                            )}
+                        </a>
                     </nav>
 
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition cursor-pointer">
-                                <Phone className="w-5 h-5 text-white" />
-                            </div>
-                        </div>
-                        <button className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition">
-                            <Mail className="w-5 h-5 text-white" />
-                        </button>
+                        <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
+                            <DialogTrigger asChild>
+                                <button className="flex items-center gap-2 bg-accent cursor-pointer hover:bg-white/30 transition px-8 py-2 rounded-full text-white font-medium text-sm">
+                                    Login
+                                </button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-md">
+                                <DialogHeader>
+                                    <DialogTitle className="text-2xl font-bold text-center mb-2">Welcome Back!</DialogTitle>
+                                    <DialogDescription className="text-center">
+                                        Choose your account type to continue
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <button 
+                                        onClick={() => handleLoginChoice('business')}
+                                        className="group relative p-6 rounded-xl border-2 border-gray-200 hover:border-blue-500 transition-all duration-300 hover:shadow-lg"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+                                                <svg className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                                </svg>
+                                            </div>
+                                            <div className="text-left flex-1">
+                                                <h3 className="font-bold text-lg text-gray-900">Business Login</h3>
+                                                <p className="text-sm text-gray-600">Access your business dashboard</p>
+                                            </div>
+                                            <ChevronDown className="w-5 h-5 text-gray-400 -rotate-90 group-hover:text-blue-500 transition-colors" />
+                                        </div>
+                                    </button>
+                                    
+                                    <button 
+                                        onClick={() => handleLoginChoice('customer')}
+                                        className="group relative p-6 rounded-xl border-2 border-gray-200 hover:border-green-500 transition-all duration-300 hover:shadow-lg"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-500 transition-colors">
+                                                <svg className="w-6 h-6 text-green-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
+                                            </div>
+                                            <div className="text-left flex-1">
+                                                <h3 className="font-bold text-lg text-gray-900">Customer Login</h3>
+                                                <p className="text-sm text-gray-600">View your loyalty rewards</p>
+                                            </div>
+                                            <ChevronDown className="w-5 h-5 text-gray-400 -rotate-90 group-hover:text-green-500 transition-colors" />
+                                        </div>
+                                    </button>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
                     </div>
-
                 </div>
             </header>
 
@@ -160,7 +258,6 @@ export default function Welcome() {
                     </div>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                        {/* Benefit 1 */}
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
                                 <Award className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
@@ -173,7 +270,6 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        {/* Benefit 2 */}
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
                                 <Tag className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
@@ -186,7 +282,6 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        {/* Benefit 3 */}
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
                                 <Gift className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
@@ -199,7 +294,6 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        {/* Benefit 4 */}
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
                                 <svg className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -217,8 +311,97 @@ export default function Welcome() {
                 </div>
             </section>
 
+            {/* Features Section */}
+            <section id="features" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28" style={{ backgroundColor: '#f8f9fa' }}>
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ color: '#333333' }}>
+                            Powerful Features for Your Business
+                        </h2>
+                        <p className="text-gray-600 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto px-4">
+                            Everything you need to run a successful loyalty program
+                        </p>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                        <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                            <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
+                                <BarChart3 className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                            </div>
+                            <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
+                                Customer Analytics
+                            </h3>
+                            <p className="text-gray-600 text-sm lg:text-base">
+                                Track customer traffic by day, visit frequency, and new customer counts to make data-driven decisions and plan better.
+                            </p>
+                        </div>
+
+                        <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                            <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
+                                <Palette className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                            </div>
+                            <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
+                                Customizable Cards
+                            </h3>
+                            <p className="text-gray-600 text-sm lg:text-base">
+                                Design loyalty cards that match your brand with custom colors, logos, and reward structures.
+                            </p>
+                        </div>
+
+                        <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                            <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
+                                <QrCode className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                            </div>
+                            <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
+                                Custom QR Codes
+                            </h3>
+                            <p className="text-gray-600 text-sm lg:text-base">
+                                Generate unique QR codes for your business to display at your location for easy customer scanning.
+                            </p>
+                        </div>
+
+                        <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                            <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
+                                <Wifi className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                            </div>
+                            <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
+                                Scan to Stamp
+                            </h3>
+                            <p className="text-gray-600 text-sm lg:text-base">
+                                Customers can instantly earn stamps by scanning your QR code with their smartphone.
+                            </p>
+                        </div>
+
+                        <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                            <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
+                                <WifiOff className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                            </div>
+                            <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
+                                Offline Stamp Codes
+                            </h3>
+                            <p className="text-gray-600 text-sm lg:text-base">
+                                Award stamps even without internet connection using unique offline codes.
+                            </p>
+                        </div>
+
+                        <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                            <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
+                                <Headphones className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                            </div>
+                            <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
+                                24/7 Customer Support
+                            </h3>
+                            <p className="text-gray-600 text-sm lg:text-base">
+                                Get help anytime with our ticket-based support system. We're always here to assist you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+       
             {/* How It Works Section */}
-            <section id="how-it-works" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28" style={{ backgroundColor: '#f8f9fa' }}>
+            <section id="how-it-works" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-white" >
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12 sm:mb-16 lg:mb-20">
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ color: '#333333' }}>
@@ -307,7 +490,7 @@ export default function Welcome() {
             </section>
 
             {/* Pricing Section */}
-            <section id="pricing" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-white">
+            <section id="pricing" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-white" style={{ backgroundColor: '#f8f9fa' }}>
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12 sm:mb-16 lg:mb-20">
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ color: '#333333' }}>
@@ -393,7 +576,7 @@ export default function Welcome() {
                                     Premium
                                 </h3>
                                 <div className="flex items-baseline gap-2 mb-3">
-                                    <span className="text-4xl lg:text-5xl font-bold text-white">₱199</span>
+                                    <span className="text-4xl lg:text-5xl font-bold text-white">₱99</span>
                                     <span className="text-white/80 text-lg">/month</span>
                                 </div>
                                 <p className="text-white/90 text-sm">
@@ -451,6 +634,83 @@ export default function Welcome() {
                 </div>
             </section>
 
+            {/* FAQ Section */}
+<section id="faq" className="relative z-10 px-4 sm:px-6  sm:py-12 lg:py-16 bg-white">
+    <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ color: '#333333' }}>
+                Frequently Asked Questions
+            </h2>
+            <p className="text-gray-600 text-base sm:text-lg lg:text-xl px-4">
+                Everything you need to know about StampBayan
+            </p>
+        </div>
+
+        <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem value="item-1" className="border-2 border-gray-100 rounded-2xl px-6 hover:border-primary transition-colors">
+                <AccordionTrigger className="text-left text-lg sm:text-xl font-bold hover:no-underline py-6" style={{ color: '#333333' }}>
+                    What is StampBayan?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base sm:text-lg pb-6 leading-relaxed">
+                    StampBayan is a modern Customer Loyalty Card system where businesses can reward their customers for coming back and build relationships with them to strengthen customer loyalty. Say goodbye to paper punch cards and hello to a digital solution that's easy for both you and your customers.
+                </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="border-2 border-gray-100 rounded-2xl px-6 hover:border-primary transition-colors">
+                <AccordionTrigger className="text-left text-lg sm:text-xl font-bold hover:no-underline py-6" style={{ color: '#333333' }}>
+                    What is your goal?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base sm:text-lg pb-6 leading-relaxed">
+                    Our goal is to introduce businesses to modern systems so they can see the benefits and advantages of using digital loyalty programs. We want to show businesses that having a system doesn't have to be expensive to maintain—it's actually a powerful tool to help you grow and thrive.
+                </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="border-2 border-gray-100 rounded-2xl px-6 hover:border-primary transition-colors">
+                <AccordionTrigger className="text-left text-lg sm:text-xl font-bold hover:no-underline py-6" style={{ color: '#333333' }}>
+                    How will this help my business?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base sm:text-lg pb-6 leading-relaxed">
+                    Building strong connections with your customers keeps them coming back. Research shows that increasing customer retention by just 5% can boost profits by 25-95%. Loyal customers spend 67% more than new customers and are five times more likely to make repeat purchases. With StampBayan, you create meaningful relationships that turn one-time visitors into lifelong patrons.
+                </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="border-2 border-gray-100 rounded-2xl px-6 hover:border-primary transition-colors">
+                <AccordionTrigger className="text-left text-lg sm:text-xl font-bold hover:no-underline py-6" style={{ color: '#333333' }}>
+                    What is Customer Analytics?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base sm:text-lg pb-6 leading-relaxed">
+                    Our Customer Analytics feature gives you valuable insights into your business performance. You'll see:
+                    <ul className="list-disc list-inside mt-3 space-y-2 ml-2">
+                        <li>Customer traffic by day - Know when your store is busiest</li>
+                        <li>Customer visit frequency - Understand how often customers return</li>
+                        <li>New customer count - Track your business growth</li>
+                        <li>Peak hours and trends - Plan staffing and inventory better</li>
+                    </ul>
+                    <span className="block mt-3">All this data helps you make smarter business decisions and serve your customers better.</span>
+                </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="border-2 border-gray-100 rounded-2xl px-6 hover:border-primary transition-colors">
+                <AccordionTrigger className="text-left text-lg sm:text-xl font-bold hover:no-underline py-6" style={{ color: '#333333' }}>
+                    Do I need to pay?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base sm:text-lg pb-6 leading-relaxed">
+                    We offer a 1-month free trial with full access to all features! During this trial, you'll see if this system is right for you, gauge your customers' interest, and discover if it helps your business earn and grow. After the trial, our Premium plan is just ₱99/month—an affordable investment in your business's future.
+                </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6" className="border-2 border-gray-100 rounded-2xl px-6 hover:border-primary transition-colors ">
+                <AccordionTrigger className="text-left text-lg sm:text-xl font-bold hover:no-underline py-6" style={{ color: '#333333' }}>
+                    What makes StampBayan different from other loyalty systems?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base sm:text-lg pb-6 leading-relaxed">
+                    At StampBayan, we believe that even small businesses deserve access to powerful systems. We've designed our platform to be affordable because we know that useful tools don't have to be expensive. Our system focuses on delivering real benefits to your business while being incredibly easy to use. No complicated setup, no hidden costs—just a straightforward solution that helps you grow.
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    </div>
+</section>
+
             {/* Footer */}
             <footer className="relative z-10 px-4 sm:px-6 py-6 bg-white border-t border-gray-200">
                 <div className="max-w-7xl mx-auto text-center">
@@ -462,3 +722,4 @@ export default function Welcome() {
         </div>         
     );
 }
+

@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Store, Mail, Lock, AlertCircle } from 'lucide-react';
-
+import LOGO from '../../../../images/mainLogo.png';
 interface LoginProps {
     business?: {
         id: number;
@@ -45,9 +45,7 @@ export default function Login({ business, status }: LoginProps) {
                                     className="h-16 w-auto"
                                 />
                             ) : (
-                                <div className="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                                    <Store className="h-8 w-8 text-white" />
-                                </div>
+                                <img src={LOGO} alt="business logo" className='w-32 h-12'/>
                             )}
                         </div>
                         <CardTitle className="text-2xl font-bold text-center">
@@ -118,7 +116,7 @@ export default function Login({ business, status }: LoginProps) {
                                     type="checkbox"
                                     checked={data.remember}
                                     onChange={(e) => setData('remember', e.target.checked)}
-                                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 bg-white"
                                 />
                                 <Label 
                                     htmlFor="remember" 
@@ -132,7 +130,7 @@ export default function Login({ business, status }: LoginProps) {
                         <CardFooter className="flex flex-col space-y-4 mt-5">
                             <Button 
                                 type="submit" 
-                                className="w-full h-11 text-base"
+                                className="w-full h-11 text-base bg-accent hover:bg-accent/70"
                                 disabled={processing}
                             >
                                 {processing ? 'Signing in...' : 'Sign In'}

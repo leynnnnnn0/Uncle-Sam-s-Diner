@@ -2,11 +2,11 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TrendingUp, ArrowUpRight } from 'lucide-react';
 interface Props {
     title: string | null;
-    percentage: string | null;
+    percentage: string | number | null;
     count: number | null;
     subtitle: string | null;   
 }
-export default function SummaryBox({title = "Total Customers", percentage = "12.5%", count = 19, subtitle = "Higher than last month"} : Props)
+export default function SummaryBox({title = "Total Customers", percentage = "12.5%", count, subtitle = "Higher than last month"} : Props)
 {
     return        <Card className="w-full max-w-xl">
       <CardHeader>
@@ -16,7 +16,7 @@ export default function SummaryBox({title = "Total Customers", percentage = "12.
           </h3>
           <div className="flex items-center gap-1 rounded-full  px-3 py-1.5 text-xs font-medium">
             <TrendingUp className="h-4 w-4" />
-            <span>{percentage}</span>
+            <span>{percentage}%</span>
           </div>
         </div>
       </CardHeader>

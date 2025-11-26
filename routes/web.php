@@ -7,6 +7,7 @@ use App\Http\Controllers\Business\QRStudioController;
 use App\Http\Controllers\Business\IssueStampController;
 use App\Http\Controllers\Business\PerkClaimController;
 use App\Http\Controllers\Business\StampCodeController;
+use App\Http\Controllers\Business\TicketController;
 use App\Http\Controllers\Customer\CustomerAuthController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/perk-claims', [PerkClaimController::class, 'index'])->name('perk-claims.index');
     Route::post('/perk-claims/{perkClaim}/redeem', [PerkClaimController::class, 'markAsRedeemed'])->name('perk-claims.redeem');
     Route::post('/perk-claims/{perkClaim}/undo', [PerkClaimController::class, 'undoRedeem'])->name('perk-claims.undo');
+
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/tickets/{id}', [TicketController::class, 'show'])->name('tickets.show');
+    Route::post('/tickets/{id}/reply', [TicketController::class, 'reply'])->name('tickets.reply');
 
 });
 

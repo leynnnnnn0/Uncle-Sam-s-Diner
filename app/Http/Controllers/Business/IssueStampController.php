@@ -58,7 +58,7 @@ class IssueStampController extends Controller
     {
         // Expire old unused codes
         StampCode::whereNull('used_at')
-            ->where('created_at', '>=', Carbon::now()->subMinutes(15))
+            ->where('created_at', '<=', Carbon::now()->subMinutes(15))
             ->update([
                 'is_expired' => true
             ]);
