@@ -33,6 +33,8 @@ class StampCodeController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+            //
+
         return Inertia::render('Business/StampCode/Index', [
             'stampCodes' => $stampCodes,
             'filters' => [
