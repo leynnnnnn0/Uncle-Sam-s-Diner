@@ -14,7 +14,7 @@ import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { AwardIcon, BookOpen, Code2Icon, Folder, IdCard, LayoutGrid, QrCodeIcon, Stamp, StampIcon, TicketIcon, Users2Icon } from 'lucide-react';
-import AppLogo from './app-logo';
+import LOGO from '../../images/mainLogo.png';
 
 const mainNavItems: NavItem[] = [
     {
@@ -52,13 +52,18 @@ const mainNavItems: NavItem[] = [
         href: '/business/qr-studio',
         icon: QrCodeIcon,
     },
+     {
+        title: 'Tickets',
+        href: '/business/tickets',
+        icon: TicketIcon,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Tickets',
-        href: '/business/tickets',
-        icon: TicketIcon,
+        title: 'Documentation',
+        href: '/documenation',
+        icon: BookOpen,
     },
 ];
 
@@ -70,7 +75,7 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href='/business/dashboard' prefetch>
-                                <AppLogo />
+                                <img src={LOGO} alt="logo" className='w-full' />
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

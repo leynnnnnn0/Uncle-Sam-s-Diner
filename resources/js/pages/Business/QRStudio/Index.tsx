@@ -172,7 +172,7 @@ export default function Index({ qrUrl, qrCode, errors }: IndexProps) {
                     {/* QR Code Placeholder */}
                     <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 bg-white p-2 mb-4 sm:mb-6 lg:mb-8 shadow-lg">
                       <div className="w-full h-full bg-gray-300 flex items-center justify-center text-xs text-gray-600">
-                        QR Code Preview
+                        QR Code will show here
                       </div>
                     </div>
 

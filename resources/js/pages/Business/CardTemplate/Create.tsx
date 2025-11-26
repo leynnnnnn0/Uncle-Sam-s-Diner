@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { toast } from 'sonner';
 
 export default function Create() {
   const { data, setData, post, processing, errors } = useForm({
@@ -67,7 +68,14 @@ export default function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post('/business/card-templates');
+    post('/business/card-templates', {
+      onSuccess: () => {
+        toast.success('Loyalty Card Created Successfully.');
+      },
+      onError: () => {
+        toast.error("Please fill up all the required fields");
+      }
+    });
   };
 
   const StampShape = ({ shape, isFilled, isReward, rewardText, color, details }) => {

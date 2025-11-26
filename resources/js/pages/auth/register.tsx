@@ -26,12 +26,29 @@ export default function Register() {
                 {({ processing, errors }) => (
                     <>
                         <div className="grid gap-6">
+                             <div className="grid gap-2">
+                                <Label htmlFor="business_name">Business Name</Label>
+                                <Input
+                                    id="business_name"
+                                    type="text"
+                                    
+                                    autoFocus
+                                    tabIndex={1}
+                                    autoComplete="text"
+                                    name="business_name"
+                                    placeholder="Business Name"
+                                />
+                                <InputError
+                                    message={errors.business_name}
+                                    className="mt-2"
+                                />
+                            </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="username">Username</Label>
                                 <Input
                                     id="username"
                                     type="text"
-                                    required
+                                    
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="username"
@@ -49,7 +66,7 @@ export default function Register() {
                                 <Input
                                     id="email"
                                     type="email"
-                                    required
+                                    
                                     tabIndex={2}
                                     autoComplete="email"
                                     name="email"
@@ -63,7 +80,7 @@ export default function Register() {
                                 <Input
                                     id="password"
                                     type="password"
-                                    required
+                                    
                                     tabIndex={3}
                                     autoComplete="new-password"
                                     name="password"
@@ -79,7 +96,7 @@ export default function Register() {
                                 <Input
                                     id="password_confirmation"
                                     type="password"
-                                    required
+                                    
                                     tabIndex={4}
                                     autoComplete="new-password"
                                     name="password_confirmation"

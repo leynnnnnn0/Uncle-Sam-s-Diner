@@ -146,7 +146,7 @@ export default function Index({ code, cards, loyalty_card_id }: Props) {
             <button
               onClick={generateCode}
               disabled={loading || cards.length === 0}
-              className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-colors"
+              className="w-full px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/70 disabled:bg-accent/60 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? "Generating..." : "Generate Code"}
             </button>
