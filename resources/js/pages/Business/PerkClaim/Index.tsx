@@ -53,7 +53,6 @@ interface PerkClaim {
   stamps_at_claim: number;
   is_redeemed: boolean;
   redeemed_at: string | null;
-  redeemed_by: number | null;
   remarks: string | null;
   created_at: string;
   customer: {
@@ -72,9 +71,9 @@ interface PerkClaim {
     name: string;
     logo: string | null;
   };
-  redeemed_by_user?: {
+  redeemed_by?: {
     id: number;
-    name: string;
+    username: string;
   };
 }
 
@@ -571,7 +570,7 @@ export default function Index({ perkClaims, filters, stats }: Props) {
                     <div>
                       <p className="text-sm text-gray-600">Redeemed By</p>
                       <p className="font-semibold text-sm">
-                        {selectedClaim.redeemed_by_user?.name || 'N/A'}
+                        {selectedClaim.redeemed_by?.username || 'N/A'}
                       </p>
                     </div>
                   </div>

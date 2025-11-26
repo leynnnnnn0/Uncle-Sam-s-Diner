@@ -20,7 +20,7 @@ class PerkClaimController extends Controller
                 'customer:id,username,email',
                 'perk:id,reward,details,stampNumber',
                 'loyalty_card:id,name,logo',
-                'redeemed_by:id,name'
+                'redeemed_by:id,username'
             ])
             ->whereHas('loyalty_card', function ($query) {
                 $query->where('business_id', Auth::user()->business->id);
@@ -48,6 +48,9 @@ class PerkClaimController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
+
+
+          
 
         $stats = [
             'total' => PerkClaim::whereHas('loyalty_card', function ($query) {

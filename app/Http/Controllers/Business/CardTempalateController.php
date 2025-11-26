@@ -15,8 +15,12 @@ class CardTempalateController extends Controller
     {
         $cardTemplates = Auth::user()->business->loyaltyCards()
             ->with('perks')
+            ->with(['stamp_codes' => function ($q) {
+                $q->whereNotNull('used_at');
+            }])
             ->latest()
             ->get();
+
 
         return Inertia::render('Business/CardTemplate/Index', [
             'cardTemplates' => $cardTemplates
@@ -97,7 +101,7 @@ class CardTempalateController extends Controller
                         unlink(public_path($stampImagePath));
                     }
                     $stampImagePath = $this->uploadBase64Image($validated['stampImage'], 'stamp-images');
-                } 
+                }
             } elseif ($validated['stampImage'] === null) {
                 if ($stampImagePath && file_exists(public_path($stampImagePath))) {
                     unlink(public_path($stampImagePath));
@@ -113,7 +117,7 @@ class CardTempalateController extends Controller
                         unlink(public_path($backgroundImagePath));
                     }
                     $backgroundImagePath = $this->uploadBase64Image($validated['backgroundImage'], 'card-backgrounds');
-                } 
+                }
             } elseif ($validated['backgroundImage'] === null) {
                 if ($backgroundImagePath && file_exists(public_path($backgroundImagePath))) {
                     unlink(public_path($backgroundImagePath));

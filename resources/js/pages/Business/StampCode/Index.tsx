@@ -43,6 +43,9 @@ interface StampCode {
   used_at: string | null;
   is_expired: boolean;
   created_at: string;
+  loyalty_card: {
+    name: string
+  }
 }
 
 interface Props {
@@ -89,10 +92,10 @@ export default function Index({ stampCodes, filters }: Props) {
 
   const getStatusBadge = (stampCode: StampCode) => {
     if (stampCode.is_expired) {
-      return <Badge variant="destructive">Expired</Badge>;
+      return <Badge className="bg-red-500 text-white">Expired</Badge>;
     }
     if (stampCode.used_at) {
-      return <Badge variant="secondary">Used</Badge>;
+      return <Badge className="bg-green-500 text-white">Used</Badge>;
     }
     return <Badge variant="default">Active</Badge>;
   };
@@ -127,7 +130,7 @@ export default function Index({ stampCodes, filters }: Props) {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="font-mono font-medium text-sm break-all pr-2">
-                    {stampCode.code}
+                    {stampCode.loyalty_card.name} | {stampCode.code}
                   </div>
                   {getStatusBadge(stampCode)}
                 </div>
@@ -173,6 +176,7 @@ export default function Index({ stampCodes, filters }: Props) {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Loyalty Card</TableHead>
                 <TableHead>Code</TableHead>
                 <TableHead>Customer</TableHead>
                 <TableHead>Status</TableHead>
@@ -184,6 +188,7 @@ export default function Index({ stampCodes, filters }: Props) {
               {stampCodes.data.length > 0 ? (
                 stampCodes.data.map((stampCode) => (
                   <TableRow key={stampCode.id}>
+                    <TableCell>{stampCode.loyalty_card.name}</TableCell>
                     <TableCell className="font-mono font-medium">
                       {stampCode.code}
                     </TableCell>

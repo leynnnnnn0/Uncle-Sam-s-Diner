@@ -168,7 +168,7 @@ export default function Welcome() {
                     <div className="flex items-center gap-3">
                         <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
                             <DialogTrigger asChild>
-                                <button className="flex items-center gap-2 bg-accent cursor-pointer hover:bg-white/30 transition px-8 py-2 rounded-full text-white font-medium text-sm">
+                                <button className="flex items-center gap-2 bg-white cursor-pointer hover:bg-white/30 transition px-8 py-2 rounded-full text-primary font-medium text-sm">
                                     Login
                                 </button>
                             </DialogTrigger>
@@ -236,10 +236,11 @@ export default function Welcome() {
                         </p>
 
                         <button 
-                            className="text-white font-semibold px-8 sm:px-10 lg:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
-                            style={{ backgroundColor: '#F4B942', color: '#333333' }}
+                            onClick={() => setLoginDialogOpen(true)}
+                            className="text-primary cursor-pointer font-semibold px-8 sm:px-10 lg:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg bg-white "
+                           
                         >
-                            Start Stamping
+                            Start Stamping 
                         </button>
                     </div>
                 </div>

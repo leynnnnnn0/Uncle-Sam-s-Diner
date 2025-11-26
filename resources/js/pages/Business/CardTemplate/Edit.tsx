@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ModuleHeading from "@/components/module-heading";
 import AppLayout from "@/layouts/app-layout";
 import { Head, useForm } from "@inertiajs/react";
-import { Upload, ImageIcon, Plus, Trash2, Sparkles } from 'lucide-react';
+import { Upload, ImageIcon, Plus, Trash2, Sparkles, Terminal, LucideMessageCircleWarning } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Edit({ cardTemplate }) {
   const { data, setData, put, processing, errors } = useForm({
@@ -169,6 +169,14 @@ export default function Edit({ cardTemplate }) {
         title="Edit your customized card template" 
         description="Update your loyalty card design with live preview"
       />
+
+    <Alert variant="destructive">
+  <LucideMessageCircleWarning/>
+  <AlertTitle>Important: This affects existing customers</AlertTitle>
+  <AlertDescription>
+    Any changes to these perks will immediately update all active customer loyalty cards. Make sure your customers are aware of perk changes before saving.
+  </AlertDescription>
+</Alert>
 
       <form onSubmit={handleSubmit}>
         <div className="grid lg:grid-cols-5 gap-4 md:gap-6 lg:gap-8 mt-4 md:mt-6 lg:mt-8">

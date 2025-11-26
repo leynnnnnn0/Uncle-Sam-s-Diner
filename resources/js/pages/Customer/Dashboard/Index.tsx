@@ -207,9 +207,7 @@ export default function Index({ cardTemplates, stampCodes, completedCards, custo
             description: `You completed cycle #${page.props.flash.cycle_number}!`
           });
         } else {
-          toast.success(page.props.flash.message, {
-            description: `${page.props.flash.stamps_remaining} stamps remaining`
-          });
+          toast.success("Stamped Succesfully.");
         }
         
         reset();

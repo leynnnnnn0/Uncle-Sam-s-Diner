@@ -3,22 +3,51 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import AppLayout from "@/layouts/app-layout";
 import { Head, router } from "@inertiajs/react";
-import { Plus, Edit, Trash2, Eye, Sparkles, Award } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, Sparkles, Award, AlertTriangle } from "lucide-react";
 import { useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function Index({ cardTemplates = [] }) {
   const [hoveredStamp, setHoveredStamp] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [templateToDelete, setTemplateToDelete] = useState(null);
 
   const handleEdit = (id) => {
     router.visit(`/business/card-templates/${id}/edit`);
   };
 
   const handleDelete = (id) => {
-    if (confirm('Are you sure you want to delete this card template?')) {
-      router.delete(`/business/card-templates/${id}`);
+    setTemplateToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (templateToDelete) {
+      router.delete(`/business/card-templates/${templateToDelete}`);
+      setDeleteDialogOpen(false);
+      setTemplateToDelete(null);
     }
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setTemplateToDelete(null);
   };
 
   const handleView = (id) => {
@@ -236,9 +265,9 @@ export default function Index({ cardTemplates = [] }) {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <CardTitle className="text-lg flex items-center gap-2">
-                    {template.heading}
+                    {template.name}
                     {template.perks && template.perks.length > 0 && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge className="text-xs bg-green-500 text-white">
                         <Award className="h-3 w-3 mr-1" />
                         {template.perks.length} Perks
                       </Badge>
@@ -268,6 +297,7 @@ export default function Index({ cardTemplates = [] }) {
                   <Eye className="h-4 w-4 mr-1" />
                   View
                 </Button>
+
                 <Button
                   variant="outline"
                   size="sm"
@@ -289,6 +319,37 @@ export default function Index({ cardTemplates = [] }) {
           </Card>
         ))}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-red-500" />
+              Delete Loyalty Card Template?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-2">
+              <p className="font-semibold text-gray-900">
+                Are you sure you want to delete this loyalty card template?
+              </p>
+              <p>
+                Customers who are already using this loyalty card might be shocked that it's gone. This action cannot be undone and will affect all existing customer cards using this template.
+              </p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelDelete}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmDelete}
+              className="bg-red-600 hover:bg-red-700 focus:ring-red-600"
+            >
+              Delete Template
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AppLayout>
   );
 }

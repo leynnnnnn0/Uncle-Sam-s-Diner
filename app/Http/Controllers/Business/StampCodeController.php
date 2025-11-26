@@ -18,7 +18,7 @@ class StampCodeController extends Controller
     {
         $search = $request->input('search');
 
-        $stampCodes = StampCode::where('business_id', Auth::user()->business->id)
+        $stampCodes = StampCode::with('loyalty_card')->where('business_id', Auth::user()->business->id)
             ->with('customer:id,username,email')
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
