@@ -187,7 +187,7 @@ export default function Welcome() {
                     <div className="flex items-center gap-3">
                         <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
                             <DialogTrigger asChild>
-                                <button className="flex items-center gap-2 bg-white cursor-pointer hover:bg-white/30 transition px-8 py-2 rounded-full text-primary font-medium text-sm">
+                                <button className="flex items-center gap-2 bg-white cursor-pointer hover:bg-white/30 transition sm:px-8 py-2 rounded-full text-primary font-medium text-xs sm:text-sm px-5">
                                     Login
                                 </button>
                             </DialogTrigger>
@@ -256,12 +256,12 @@ export default function Welcome() {
 
                         <button 
                             onClick={() => handleDemoClick()}
-                            className="text-primary cursor-pointer font-semibold px-8 sm:px-10 lg:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg bg-white "
+                            className="text-primary cursor-pointer font-semibold px-5 sm:px-10 lg:px-12 py-2 sm:py-4 rounded-full sm:text-lg md:text-base text-xs transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg bg-white "
                            
                         >
-                            <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center justify-between gap-2">
                                 Try Demo
-                                <Play/>
+                                <Play className='size-4'/>
                             </div>
                         </button>
                     </div>
@@ -283,7 +283,7 @@ export default function Welcome() {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <Award className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <Award className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Strengthen Relationships
@@ -295,7 +295,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <Tag className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <Tag className="w-7 h-7 lg:w-8 lg:h-8 text-white"/>
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Amazing Discounts
@@ -307,7 +307,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <Gift className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <Gift className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Free Rewards
@@ -319,7 +319,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <svg className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="w-7 h-7 lg:w-8 lg:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 4 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                                 </svg>
                             </div>
@@ -349,7 +349,7 @@ export default function Welcome() {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <BarChart3 className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <BarChart3 className="w-7 h-7 lg:w-8 lg:h-8 text-white"/>
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Customer Analytics
@@ -361,7 +361,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <Palette className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <Palette className="w-7 h-7 lg:w-8 lg:h-8 text-white"/>
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Customizable Cards
@@ -373,7 +373,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <QrCode className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <QrCode className="w-7 h-7 lg:w-8 lg:h-8 text-white"/>
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Custom QR Codes
@@ -385,7 +385,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <Wifi className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <Wifi className="w-7 h-7 lg:w-8 lg:h-8 text-white"/>
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Scan to Stamp
@@ -397,7 +397,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <WifiOff className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <WifiOff className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 Offline Stamp Codes
@@ -409,7 +409,7 @@ export default function Welcome() {
 
                         <div className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
                             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                <Headphones className="w-7 h-7 lg:w-8 lg:h-8" style={{ color: '#333333' }} />
+                                <Headphones className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                             </div>
                             <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
                                 24/7 Customer Support
@@ -444,7 +444,7 @@ export default function Welcome() {
                             {/* Step 1 */}
                             <div className="flex gap-4 sm:gap-3 group">
                                 <div className="flex-shrink-0">
-                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942', color: '#333333' }}>
+                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942', color: '#ffffff' }}>
                                         1
                                     </div>
                                 </div>
@@ -464,7 +464,7 @@ export default function Welcome() {
                             {/* Step 2 */}
                             <div className="flex gap-4 sm:gap-6 group">
                                 <div className="flex-shrink-0">
-                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942', color: '#333333' }}>
+                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942', color: '#ffffff' }}>
                                         2
                                     </div>
                                 </div>
@@ -484,7 +484,7 @@ export default function Welcome() {
                             {/* Step 3 */}
                             <div className="flex gap-4 sm:gap-6 group">
                                 <div className="flex-shrink-0">
-                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942', color: '#333333' }}>
+                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942', color: '#ffffff' }}>
                                         3
                                     </div>
                                 </div>
@@ -501,8 +501,9 @@ export default function Welcome() {
                             {/* CTA Button */}
                             <div className="pt-6 lg:pt-8">
                                 <button 
-                                    className="w-full sm:w-auto font-semibold px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
-                                    style={{ backgroundColor: '#F4B942', color: '#333333' }}
+                                    onClick={() => setLoginDialogOpen(true)}
+                                    className="w-full sm:w-auto font-semibold px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg cursor-pointer"
+                                    style={{ backgroundColor: '#F4B942', color: '#ffffff' }}
                                 >
                                     Get Started Now
                                 </button>
