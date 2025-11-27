@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
 use App\Models\QrCode as ModelsQrCode;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Endroid\QrCode\Writer\PngWriter;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use Spatie\LaravelPdf\Facades\Pdf as PDF;
+
 
 class QRStudioController extends Controller
 {
@@ -23,25 +24,42 @@ class QRStudioController extends Controller
         ]);
     }
 
-    public function download()
-    {
-        $qrCode = Auth::user()->business->qr_code;
+  public function download()
+{
+    $qrCode = Auth::user()->business->qr_code;
 
-        $data = [
-            'heading' => $qrCode->heading ?? 'Loyalty Program',
-            'subheading' => $qrCode->subheading ?? 'Join our loyalty program by scanning the QR code',
-            'backgroundColor' => $qrCode->background_color ?? '#FFFFFF',
-            'textColor' => $qrCode->text_color ?? '#000000',
-            'qrUrl' => 'https://google.com',
-            'logo' => $qrCode->logo ? public_path($qrCode->logo) : null,
-            'backgroundImage' =>  $qrCode->background_image ? public_path($qrCode->background_image) : null,
-        ];
+    $data = [
+        'heading' => $qrCode->heading ?? 'Loyalty Program',
+        'subheading' => $qrCode->subheading ?? 'Join our loyalty program by scanning the QR code',
+        'backgroundColor' => $qrCode->background_color ?? '#FFFFFF',
+        'textColor' => $qrCode->text_color ?? '#000000',
+        'qrUrl' => 'https://stampbayan.com/customer/register?business=' . $qrCode,
+        'logo' => $qrCode->logo ? public_path($qrCode->logo) : null,
+        'backgroundImage' => $qrCode->background_image ? public_path($qrCode->background_image) : null,
+    ];
 
-        $pdf = PDF::view('pdf.qr-code', $data);
-        
-        
-        return $pdf->download("qr-code.pdf");
+    // Generate QR code and convert to base64
+    if ($data['qrUrl']) {
+        $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=' . urlencode($data['qrUrl']);
+        $qrImageData = file_get_contents($qrImageUrl);
+        $data['qrCodeBase64'] = 'data:image/png;base64,' . base64_encode($qrImageData);
     }
+
+    // Convert logo to base64
+    if ($data['logo'] && file_exists($data['logo'])) {
+        $data['logoBase64'] = 'data:image/' . pathinfo($data['logo'], PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($data['logo']));
+    }
+    
+    // Convert background image to base64
+    if ($data['backgroundImage'] && file_exists($data['backgroundImage'])) {
+        $data['backgroundImageBase64'] = 'data:image/' . pathinfo($data['backgroundImage'], PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($data['backgroundImage']));
+    }
+
+    $pdf = Pdf::loadView('pdf.qr-code', $data);
+    $pdf->setPaper('letter', 'portrait');
+    
+    return $pdf->download("qr-code.pdf");
+}
 
     public function update(Request $request)
     {

@@ -81,7 +81,7 @@ class CustomerAuthController extends Controller
      * Handle registration
      */
     public function register(Request $request)
-    {
+    {   
         $validated = $request->validate([
             'business_id' => 'required|exists:businesses,id',
             'username' => 'required|string|max:255|unique:customers,username',

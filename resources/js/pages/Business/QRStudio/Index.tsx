@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import ModuleHeading from "@/components/module-heading";
 import AppLayout from "@/layouts/app-layout";
 import { Head, router, useForm } from "@inertiajs/react";
+import { toast } from 'sonner';
 
 interface QRCodeData {
   heading: string;
@@ -86,10 +87,11 @@ export default function Index({ qrUrl, qrCode, errors }: IndexProps) {
     
     post('/business/qr-studio/update', {
       onSuccess: () => {
-        alert('QR Code settings saved successfully!');
+        toast.success('QR Code settings saved successfully!')
       },
       onError: (errors) => {
-        console.error('Save errors:', errors);
+       toast.error("An error occured while trying to generate.")
+       console.log(errors);
       }
     });
   };

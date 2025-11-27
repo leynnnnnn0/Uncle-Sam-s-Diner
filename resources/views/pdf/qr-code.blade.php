@@ -2,12 +2,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @page {
             margin: 0;
             padding: 0;
-            size: 8.5in 11in;
+            size: letter portrait;
         }
         
         * {
@@ -16,69 +15,154 @@
             box-sizing: border-box;
         }
         
-        html, body {
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
         }
         
-        body {
-            font-family: 'DejaVu Sans', sans-serif;
+        .page-container {
+            width: 100%;
+            min-height: 100vh;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+            position: relative;
         }
         
-        @media print {
-            html, body {
-                width: 8.5in;
-                height: 11in;
-            }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 2;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 3;
+            padding: 60px;
+            min-height: 100vh;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .heading {
+            font-size: 72px;
+            font-style: italic;
+            font-family: serif;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .subheading {
+            font-size: 24px;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+        
+        .qr-container {
+            width: 320px;
+            height: 320px;
+            background-color: white;
+            padding: 16px;
+            margin: 0 auto 50px;
+            border: 3px solid #e5e7eb;
+        }
+        
+        .qr-container img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #d1d5db;
+            text-align: center;
+            padding-top: 140px;
+        }
+        
+        .qr-placeholder-text {
+            font-size: 20px;
+            color: #4b5563;
+        }
+        
+        .logo-container {
+            width: 250px;
+            height: 200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+        }
+        
+        .logo-placeholder {
+            padding-top: 60px;
+            font-weight: bold;
+            font-size: 32px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
-    <div class="w-screen h-screen relative overflow-hidden"
-         style="{{ $backgroundImage ? "background-image: url('{$backgroundImage}'); background-size: cover; background-position: center;" : "background-color: {$backgroundColor};" }}">
+    <div class="page-container" style="background-color: {{ $backgroundColor }};">
         
-        @if($backgroundImage)
-            <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+        @if(isset($backgroundImageBase64))
+            <div class="background" style="background-image: url('{{ $backgroundImageBase64 }}');"></div>
+            <div class="overlay"></div>
         @endif
         
-        <div class="relative h-full flex flex-col items-center justify-center p-16 border-[1rem]"
-             style="border-color: {{ $textColor }};">
+        <div class="content">
             
             <!-- Heading -->
-            <h1 class="text-9xl font-serif italic mt-10"
-                style="color: {{ $textColor }};">
+            <h1 class="heading" style="color: {{ $textColor }};">
                 {{ $heading }}
             </h1>
 
             <!-- Subheading -->
-            <p class="text-center text-3xl mb-16 whitespace-pre-line leading-relaxed"
-               style="color: {{ $textColor }};">
+            <p class="subheading" style="color: {{ $textColor }};">
                 {{ $subheading }}
             </p>
 
             <!-- QR Code -->
-            <div class="w-80 h-80 bg-white p-4 mb-16 shadow-2xl">
-                @if($qrUrl)
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data={{ $qrUrl }}" 
-                         alt="QR Code" 
-                         class="w-full h-full object-contain">
+            <div class="qr-container">
+                @if(isset($qrCodeBase64))
+                    <img src="{{ $qrCodeBase64 }}" alt="QR Code">
                 @else
-                    <div class="w-full h-full bg-gray-300 flex items-center justify-center text-xl text-gray-600">
-                        QR Code Preview
+                    <div class="qr-placeholder">
+                        <div class="qr-placeholder-text">QR Code Preview</div>
                     </div>
                 @endif
             </div>
 
             <!-- Logo -->
-            <div class="p-6 w-64 h-64 flex items-center justify-center"
-                 style="border-color: {{ $textColor }};">
-                @if($logo && file_exists($logo))
-                    <img src="{{ $logo }}" alt="Logo" class="max-w-full max-h-full object-contain">
+            <div class="logo-container">
+                @if(isset($logoBase64))
+                    <img src="{{ $logoBase64 }}" alt="Logo">
                 @else
-                    <div class="text-center font-bold text-3xl" style="color: {{ $textColor }};">
+                    <div class="logo-placeholder" style="color: {{ $textColor }};">
                         <div>YOUR</div>
                         <div>LOGO</div>
                     </div>
