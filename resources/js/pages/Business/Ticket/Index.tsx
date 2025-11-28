@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { router, useForm, Head } from "@inertiajs/react";
-import { Plus, MessageSquare, Clock, CheckCircle, XCircle, AlertCircle, Image as ImageIcon, X } from "lucide-react";
+import { Plus, MessageSquare, Clock, CheckCircle, XCircle, AlertCircle, ImageIcon, X } from "lucide-react";
 import AppLayout from "@/layouts/app-layout";
 import ModuleHeading from "@/components/module-heading";
 import {
@@ -157,9 +157,9 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
     <AppLayout>
       <Head title="Tickets" />
       
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
           <ModuleHeading 
             title="Tickets" 
             description="Manage your support tickets here." 
@@ -167,12 +167,12 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="w-full sm:w-auto">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Ticket
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px]">
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
               <form onSubmit={handleSubmit}>
                 <DialogHeader>
                   <DialogTitle>Create New Ticket</DialogTitle>
@@ -238,7 +238,7 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
                         onChange={handleImageChange}
                         className="cursor-pointer"
                       />
-                      <ImageIcon className="h-5 w-5 text-muted-foreground" />
+                      <ImageIcon className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                     </div>
                     <p className="text-xs text-muted-foreground">
                       You can upload multiple images (max 5MB each)
@@ -246,7 +246,7 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
                     
                     {/* Image Previews */}
                     {imagePreviews.length > 0 && (
-                      <div className="grid grid-cols-3 gap-2 mt-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
                         {imagePreviews.map((preview, index) => (
                           <div key={index} className="relative group">
                             <img
@@ -268,7 +268,7 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
                   </div>
                 </div>
                 
-                <DialogFooter>
+                <DialogFooter className="flex-col sm:flex-row gap-2">
                   <Button
                     type="button"
                     variant="outline"
@@ -278,10 +278,11 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
                       setImagePreviews([]);
                     }}
                     disabled={processing}
+                    className="w-full sm:w-auto"
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={processing}>
+                  <Button type="submit" disabled={processing} className="w-full sm:w-auto">
                     {processing ? 'Creating...' : 'Create Ticket'}
                   </Button>
                 </DialogFooter>
@@ -292,7 +293,29 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
 
         {/* Tabs */}
         <Tabs value={currentStatus} onValueChange={handleTabChange}>
-          <TabsList className="grid w-full grid-cols-5">
+          {/* Mobile: Scrollable horizontal tabs */}
+          <div className="md:hidden overflow-x-auto">
+            <TabsList className="inline-flex w-auto min-w-full">
+              <TabsTrigger value="all" className="flex-1 whitespace-nowrap px-4">
+                All ({counts.all})
+              </TabsTrigger>
+              <TabsTrigger value="open" className="flex-1 whitespace-nowrap px-4">
+                Open ({counts.open})
+              </TabsTrigger>
+              <TabsTrigger value="in_progress" className="flex-1 whitespace-nowrap px-4">
+                In Progress ({counts.in_progress})
+              </TabsTrigger>
+              <TabsTrigger value="resolved" className="flex-1 whitespace-nowrap px-4">
+                Resolved ({counts.resolved})
+              </TabsTrigger>
+              <TabsTrigger value="closed" className="flex-1 whitespace-nowrap px-4">
+                Closed ({counts.closed})
+              </TabsTrigger>
+            </TabsList>
+          </div>
+          
+          {/* Desktop: Grid layout */}
+          <TabsList className="hidden md:grid w-full grid-cols-5">
             <TabsTrigger value="all">
               All ({counts.all})
             </TabsTrigger>
@@ -310,18 +333,18 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value={currentStatus} className="mt-6">
+          <TabsContent value={currentStatus} className="mt-4 md:mt-6">
             {tickets.length === 0 ? (
               <Card>
-                <CardContent className="flex flex-col items-center justify-center py-12">
+                <CardContent className="flex flex-col items-center justify-center py-12 px-4">
                   <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No tickets found</h3>
-                  <p className="text-muted-foreground text-center mb-4">
+                  <h3 className="text-lg font-semibold mb-2 text-center">No tickets found</h3>
+                  <p className="text-muted-foreground text-center mb-4 text-sm">
                     {currentStatus === 'all' 
                       ? "You haven't created any tickets yet."
                       : `No ${currentStatus.replace('_', ' ')} tickets.`}
                   </p>
-                  <Button onClick={() => setIsDialogOpen(true)}>
+                  <Button onClick={() => setIsDialogOpen(true)} className="w-full sm:w-auto">
                     <Plus className="h-4 w-4 mr-2" />
                     Create Your First Ticket
                   </Button>
@@ -335,46 +358,47 @@ export default function Index({ tickets, counts, currentStatus }: Props) {
                     className="hover:shadow-md transition-shadow cursor-pointer"
                     onClick={() => router.visit(`/business/tickets/${ticket.id}`)}
                   >
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="space-y-1 flex-1">
+                    <CardHeader className="pb-3">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                        <div className="space-y-1 flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <CardTitle className="text-lg">{ticket.subject}</CardTitle>
+                            <CardTitle className="text-base sm:text-lg truncate">{ticket.subject}</CardTitle>
                             {ticket.has_images && (
-                              <ImageIcon className="h-4 w-4 text-muted-foreground" />
+                              <ImageIcon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                             )}
                           </div>
-                          <CardDescription className="flex items-center gap-2">
-                            <span className="font-mono text-xs">{ticket.ticket_number}</span>
-                            <span>•</span>
-                            <span>{ticket.created_at}</span>
+                          <CardDescription className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs">
+                            <span className="font-mono">{ticket.ticket_number}</span>
+                            <span className="hidden sm:inline">•</span>
+                            <span className="truncate">{ticket.created_at}</span>
                           </CardDescription>
                         </div>
-                        <div className="flex gap-2">
-                          <Badge variant="outline" className={getPriorityBadgeColor(ticket.priority_color)}>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="outline" className={`text-xs ${getPriorityBadgeColor(ticket.priority_color)}`}>
                             {ticket.priority}
                           </Badge>
-                          <Badge variant="outline" className={`flex items-center gap-1 ${getStatusBadgeColor(ticket.status_color)}`}>
+                          <Badge variant="outline" className={`flex items-center gap-1 text-xs ${getStatusBadgeColor(ticket.status_color)}`}>
                             {getStatusIcon(ticket.status)}
-                            {ticket.status.replace('_', ' ')}
+                            <span className="hidden sm:inline">{ticket.status.replace('_', ' ')}</span>
+                            <span className="sm:hidden capitalize">{ticket.status.split('_')[0]}</span>
                           </Badge>
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                    <CardContent className="pt-0">
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-3 sm:mb-4">
                         {ticket.description}
                       </p>
-                      <div className="flex items-center justify-between text-sm">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <MessageSquare className="h-4 w-4" />
-                          <span>{ticket.replies_count} {ticket.replies_count === 1 ? 'reply' : 'replies'}</span>
+                          <span className="text-xs sm:text-sm">{ticket.replies_count} {ticket.replies_count === 1 ? 'reply' : 'replies'}</span>
                         </div>
                         {ticket.last_reply && (
-                          <div className="text-xs text-muted-foreground">
-                            Last reply: {ticket.last_reply.created_at}
+                          <div className="text-xs text-muted-foreground flex items-center gap-2">
+                            <span className="truncate">Last reply: {ticket.last_reply.created_at}</span>
                             {ticket.last_reply.is_staff && (
-                              <Badge variant="outline" className="ml-2 text-xs">Staff</Badge>
+                              <Badge variant="outline" className="text-xs flex-shrink-0">Staff</Badge>
                             )}
                           </div>
                         )}
