@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Eye, Search } from "lucide-react";
 import Pagination from "@/components/pagination";
 
 export interface PaginationLink {
@@ -106,6 +106,7 @@ export default function Index({ customers, filters }: Props) {
                 <TableHead>Username</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Created At</TableHead>
+                <TableHead className="text-start">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -117,6 +118,11 @@ export default function Index({ customers, filters }: Props) {
                     </TableCell>
                     <TableCell>{customer.email}</TableCell>
                     <TableCell>{formatDate(customer.created_at)}</TableCell>
+                    <TableCell className="justify-center">
+                      <button className="cursor-pointer" onClick={() => router.visit(`/business/customers/${customer.id}`)}>
+                        <Eye/>
+                      </button>
+                    </TableCell> 
                   </TableRow>
                 ))
               ) : (
