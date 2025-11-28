@@ -95,12 +95,15 @@ interface Props {
   cardTemplates: LoyaltyCard[];
   stampCodes: StampCode[];
   completedCards: CompletedCard[];
-  customer: string;
+  customerName: string;
   active_card_id?: number;
   perkClaims: PerkClaim[];
+  customer: {
+    username: string,
+  }
 }
 
-export default function Index({ cardTemplates, stampCodes, completedCards, customer, perkClaims }: Props) {
+export default function Index({ cardTemplates, stampCodes, completedCards, customerName, perkClaims, customer }: Props) {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('home');
   const [recordDialogOpen, setRecordDialogOpen] = useState(false);
@@ -115,6 +118,49 @@ const controlsRef = useRef<any>(null);
     code: '',
     loyalty_card_id: cardTemplates[0]?.id || null,
   });
+
+  // Add these state variables with your other useState declarations
+const [profileDialogOpen, setProfileDialogOpen] = useState(false);
+const [profileTab, setProfileTab] = useState('info');
+
+// Add these form handlers after your existing useForm declarations
+const { data: profileData, setData: setProfileData, errors: profileErrors, post: postProfile, processing: profileProcessing, reset: resetProfile } = useForm({
+  username: customer.username,
+});
+
+const { data: passwordData, setData: setPasswordData, errors: passwordErrors, post: postPassword, processing: passwordProcessing, reset: resetPassword } = useForm({
+  current_password: '',
+  password: '',
+  password_confirmation: '',
+});
+
+// Add submit handlers
+const handleUpdateProfile = (e: React.FormEvent) => {
+  e.preventDefault();
+  postProfile('/customer/profile/update', {
+    onSuccess: () => {
+      toast.success('Profile updated successfully');
+      resetProfile();
+    },
+    onError: () => {
+      toast.error('Failed to update profile');
+    }
+  });
+};
+
+const handleUpdatePassword = (e: React.FormEvent) => {
+  e.preventDefault();
+  postPassword('/customer/password/update', {
+    onSuccess: () => {
+      toast.success('Password updated successfully');
+      resetPassword();
+      setProfileTab('info');
+    },
+    onError: () => {
+      toast.error('Failed to update password');
+    }
+  });
+};
 
   const currentCard = cardTemplates[currentCardIndex];
 
@@ -586,7 +632,10 @@ useEffect(() => {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setProfileDialogOpen(true)}>
+  Profile
+</DropdownMenuItem>
+
                     <DropdownMenuItem onClick={() => router.post('/customer/logout')}>
                       Logout
                     </DropdownMenuItem>
@@ -597,19 +646,241 @@ useEffect(() => {
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-6 py-8">
-          <h1 className="font-bold text-primary mb-8 sm:text-4xl text-xl">{customer} 👋</h1>
+          <h1 className="font-bold text-primary mb-8 sm:text-4xl text-xl">{customerName} 👋</h1>
           <Card className="border-gray-200">
             <CardContent className="p-8 text-center">
               <p className="text-gray-500">No loyalty cards available yet.</p>
             </CardContent>
           </Card>
         </main>
+
+        <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>My Profile</DialogTitle>
+      <DialogDescription>
+        Update your account information
+      </DialogDescription>
+    </DialogHeader>
+    
+    <Tabs value={profileTab} onValueChange={setProfileTab}>
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="info">Account Info</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="info" className="space-y-4 mt-4">
+        <form onSubmit={handleUpdateProfile} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              value={profileData.username}
+              onChange={(e) => setProfileData('username', e.target.value)}
+              placeholder="Enter username"
+            />
+            {profileErrors.username && (
+              <p className="text-sm text-destructive">{profileErrors.username}</p>
+            )}
+          </div>
+          
+          
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setProfileDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={profileProcessing}>
+              {profileProcessing ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </div>
+        </form>
+      </TabsContent>
+      
+      <TabsContent value="password" className="space-y-4 mt-4">
+        <form onSubmit={handleUpdatePassword} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="current_password">Current Password</Label>
+            <Input
+              id="current_password"
+              type="password"
+              value={passwordData.current_password}
+              onChange={(e) => setPasswordData('current_password', e.target.value)}
+              placeholder="Enter current password"
+            />
+            {passwordErrors.current_password && (
+              <p className="text-sm text-destructive">{passwordErrors.current_password}</p>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="new_password">New Password</Label>
+            <Input
+              id="new_password"
+              type="password"
+              value={passwordData.password}
+              onChange={(e) => setPasswordData('password', e.target.value)}
+              placeholder="Enter new password"
+            />
+            {passwordErrors.password && (
+              <p className="text-sm text-destructive">{passwordErrors.password}</p>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="password_confirmation">Confirm New Password</Label>
+            <Input
+              id="password_confirmation"
+              type="password"
+              value={passwordData.password_confirmation}
+              onChange={(e) => setPasswordData('password_confirmation', e.target.value)}
+              placeholder="Confirm new password"
+            />
+            {passwordErrors.password_confirmation && (
+              <p className="text-sm text-destructive">{passwordErrors.password_confirmation}</p>
+            )}
+          </div>
+          
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setProfileTab('info');
+                resetPassword();
+              }}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={passwordProcessing}>
+              {passwordProcessing ? 'Updating...' : 'Update Password'}
+            </Button>
+          </div>
+        </form>
+      </TabsContent>
+    </Tabs>
+  </DialogContent>
+</Dialog>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+         {/* Profile Dialog */}
+<Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>My Profile</DialogTitle>
+      <DialogDescription>
+        Update your account information
+      </DialogDescription>
+    </DialogHeader>
+    
+    <Tabs value={profileTab} onValueChange={setProfileTab}>
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="info">Account Info</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="info" className="space-y-4 mt-4">
+        <form onSubmit={handleUpdateProfile} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              value={profileData.username}
+              onChange={(e) => setProfileData('username', e.target.value)}
+              placeholder="Enter username"
+            />
+            {profileErrors.username && (
+              <p className="text-sm text-destructive">{profileErrors.username}</p>
+            )}
+          </div>
+
+          
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setProfileDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={profileProcessing}>
+              {profileProcessing ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </div>
+        </form>
+      </TabsContent>
+      
+      <TabsContent value="password" className="space-y-4 mt-4">
+        <form onSubmit={handleUpdatePassword} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="current_password">Current Password</Label>
+            <Input
+              id="current_password"
+              type="password"
+              value={passwordData.current_password}
+              onChange={(e) => setPasswordData('current_password', e.target.value)}
+              placeholder="Enter current password"
+            />
+            {passwordErrors.current_password && (
+              <p className="text-sm text-destructive">{passwordErrors.current_password}</p>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="new_password">New Password</Label>
+            <Input
+              id="new_password"
+              type="password"
+              value={passwordData.password}
+              onChange={(e) => setPasswordData('password', e.target.value)}
+              placeholder="Enter new password"
+            />
+            {passwordErrors.password && (
+              <p className="text-sm text-destructive">{passwordErrors.password}</p>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="password_confirmation">Confirm New Password</Label>
+            <Input
+              id="password_confirmation"
+              type="password"
+              value={passwordData.password_confirmation}
+              onChange={(e) => setPasswordData('password_confirmation', e.target.value)}
+              placeholder="Confirm new password"
+            />
+            {passwordErrors.password_confirmation && (
+              <p className="text-sm text-destructive">{passwordErrors.password_confirmation}</p>
+            )}
+          </div>
+          
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setProfileTab('info');
+                resetPassword();
+              }}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={passwordProcessing}>
+              {passwordProcessing ? 'Updating...' : 'Update Password'}
+            </Button>
+          </div>
+        </form>
+      </TabsContent>
+    </Tabs>
+  </DialogContent>
+</Dialog>
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -640,7 +911,9 @@ useEffect(() => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                     <DropdownMenuItem onClick={() => setProfileDialogOpen(true)}>
+  Profile
+</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => router.post('/customer/logout')}>
                     Logout
                   </DropdownMenuItem>
@@ -654,7 +927,7 @@ useEffect(() => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         <h1 className="sm:text-4xl text-lg font-bold text-primary mb-8">
-          {customer} 👋
+          {customerName} 👋
         </h1>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -1177,6 +1450,9 @@ useEffect(() => {
           )}
         </DialogContent>
       </Dialog>
+
+   
+
     </div>
   );
 }

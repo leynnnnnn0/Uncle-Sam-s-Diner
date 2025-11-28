@@ -9,6 +9,9 @@ use App\Models\PerkClaim;
 use App\Models\StampCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -55,8 +58,9 @@ class DashboardController extends Controller
             'cardTemplates' => $cardTemplates,
             'stampCodes' => $stampCodes,
             'completedCards' => $completedCards,
-            'customer' => $this->greetingByTime() . ', ' . strtoupper($customer->username),
+            'customerName' => $this->greetingByTime() . ', ' . strtoupper($customer->username),
             'perkClaims' => $perkClaims,
+            'customer' => $customer
         ]);
     }
 
@@ -71,5 +75,57 @@ class DashboardController extends Controller
         } else {
             return 'Good evening';
         }
+    }
+
+    /**
+     * Update customer profile information
+     */
+    public function updateProfile(Request $request)
+    {
+        $customer = auth()->guard('customer')->user();
+        
+        $validated = $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+        ]);
+
+        $customer->update([
+            'username' => $validated['username'],
+        ]);
+
+        return back()->with('flash', [
+            'message' => 'Profile updated successfully',
+            'type' => 'success'
+        ]);
+    }
+
+    /**
+     * Update customer password
+     */
+    public function updatePassword(Request $request)
+    {
+         $customer = Auth::guard('customer')->user();
+
+        
+        $validated = $request->validate([
+            'current_password' => [
+                'required',
+                function ($attribute, $value, $fail) use ($customer) {
+                    if (!Hash::check($value, $customer->password)) {
+                        $fail('The current password is incorrect.');
+                    }
+                },
+            ],
+            'password' => ['required', 'confirmed', Password::min(8)],
+            'password_confirmation' => ['required'],
+        ]);
+
+        $customer->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return back()->with('flash', [
+            'message' => 'Password updated successfully',
+            'type' => 'success'
+        ]);
     }
 }

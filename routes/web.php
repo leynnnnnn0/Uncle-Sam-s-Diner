@@ -51,6 +51,9 @@ Route::post('/stamps/record', [StampCodeController::class, 'record'])
 
 // Customer Authentication Routes
 Route::prefix('customer')->name('customer.')->group(function () {
+     
+    Route::post('/profile/update', [CustomerDashboardController::class, 'updateProfile'])->name('customer.profile.update');
+    Route::post('/password/update', [CustomerDashboardController::class, 'updatePassword'])->name('customer.password.update');
 
     // Guest routes (not authenticated)
     Route::middleware('guest:customer')->group(function () {
