@@ -117,14 +117,14 @@ class DatabaseSeeder extends Seeder
             'tom_lopez', 'mary_gonzalez', 'james_hernandez', 'patricia_moore', 'robert_taylor',
             'jennifer_anderson', 'michael_thomas', 'linda_jackson', 'william_white', 'barbara_harris',
             'richard_martin', 'susan_thompson', 'joseph_lee', 'jessica_walker', 'thomas_hall',
-            'nancy_allen', 'daniel_young', 'karen_king', 'paul_wright', 'betty_scott'
+            'nancy_allen', 'daniel_young', 'karen_king', 'paul_wright', 'customer'
         ];
 
         foreach ($customerNames as $index => $username) {
             $customer = Customer::create([
                 'business_id' => $business->id,
                 'username' => $username,
-                'email' => $username . '@example.com',
+                'email' => $username . '@gmail.com',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ]);

@@ -949,7 +949,7 @@ useEffect(() => {
               {/* Loyalty Card with Carousel */}
               <Card className="lg:col-span-2 border-gray-200">
                 <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-lg font-semibold flex items-center gap-3">{currentCard.name.toUpperCase()}<span className="text-xs">| Valid Until: {currentCard.valid_until_formatted}</span></CardTitle>
+                  <CardTitle className="text-lg font-semibold flex items-center gap-3">{currentCard.name.toUpperCase()}</CardTitle>
                   {cardTemplates.length > 1 && (
                     <div className="flex items-center gap-2">
                       <Button
