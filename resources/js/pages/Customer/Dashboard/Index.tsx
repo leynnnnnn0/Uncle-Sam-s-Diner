@@ -142,7 +142,11 @@ const handleUpdateProfile = (e: React.FormEvent) => {
       toast.success('Profile updated successfully');
       resetProfile();
     },
-    onError: () => {
+    onError: (e) => {
+       if(e.error){
+            toast.error(e.error);
+            return;
+       }
       toast.error('Failed to update profile');
     }
   });
@@ -156,7 +160,11 @@ const handleUpdatePassword = (e: React.FormEvent) => {
       resetPassword();
       setProfileTab('info');
     },
-    onError: () => {
+    onError: (e) => {
+         if(e.error){
+            toast.error(e.error);
+            return;
+       }
       toast.error('Failed to update password');
     }
   });

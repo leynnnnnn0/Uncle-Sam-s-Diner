@@ -50,9 +50,9 @@ class DashboardController extends Controller
             });
 
         $perkClaims = PerkClaim::where('customer_id', $customer->id)
-                ->with('perk', 'loyalty_card')
-                ->latest()
-                ->get();
+            ->with('perk', 'loyalty_card')
+            ->latest()
+            ->get();
 
         return Inertia::render('Customer/Dashboard/Index', [
             'cardTemplates' => $cardTemplates,
@@ -82,8 +82,11 @@ class DashboardController extends Controller
      */
     public function updateProfile(Request $request)
     {
+           if (Auth::guard('customer')->user()->email === 'customer@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
         $customer = auth()->guard('customer')->user();
-        
+
         $validated = $request->validate([
             'username' => ['required', 'string', 'max:255'],
         ]);
@@ -103,9 +106,12 @@ class DashboardController extends Controller
      */
     public function updatePassword(Request $request)
     {
-         $customer = Auth::guard('customer')->user();
+        if (Auth::guard('customer')->user()->email === 'customer@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
+        $customer = Auth::guard('customer')->user();
 
-        
+
         $validated = $request->validate([
             'current_password' => [
                 'required',
