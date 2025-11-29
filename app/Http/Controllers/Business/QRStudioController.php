@@ -66,6 +66,10 @@ class QRStudioController extends Controller
     public function update(Request $request)
     {
         $business = Auth::user()->business;
+        
+        // Get existing QR code record
+        $existingQrCode = ModelsQrCode::where('business_id', $business->id)->first();
+        
         // Validation
         $validated = $request->validate([
             'heading' => 'required|string|max:100',
@@ -98,18 +102,36 @@ class QRStudioController extends Controller
 
         // Handle logo upload
         if ($request->hasFile('logo')) {
+            // Delete old logo if exists
+            if ($existingQrCode && $existingQrCode->logo) {
+                $this->deleteImage($existingQrCode->logo);
+            }
+            
             $logoPath = $this->uploadImage($request->file('logo'), 'uploads/qr-codes/logos');
             if ($logoPath) {
                 $data['logo'] = $logoPath;
             }
+        } elseif ($request->input('logo') === null && $existingQrCode && $existingQrCode->logo) {
+            // If logo is explicitly set to null (removed), delete the old logo
+            $this->deleteImage($existingQrCode->logo);
+            $data['logo'] = null;
         }
 
         // Handle background image upload
         if ($request->hasFile('backgroundImage')) {
+            // Delete old background image if exists
+            if ($existingQrCode && $existingQrCode->background_image) {
+                $this->deleteImage($existingQrCode->background_image);
+            }
+            
             $backgroundPath = $this->uploadImage($request->file('backgroundImage'), 'uploads/qr-codes/backgrounds');
             if ($backgroundPath) {
                 $data['background_image'] = $backgroundPath;
             }
+        } elseif ($request->input('backgroundImage') === null && $existingQrCode && $existingQrCode->background_image) {
+            // If background image is explicitly set to null (removed), delete the old image
+            $this->deleteImage($existingQrCode->background_image);
+            $data['background_image'] = null;
         }
 
         // Update or create QR code settings
@@ -122,7 +144,7 @@ class QRStudioController extends Controller
     }
 
 
-        /**
+    /**
      * Upload image file to public folder
      *
      * @param \Illuminate\Http\UploadedFile $file
@@ -159,5 +181,27 @@ class QRStudioController extends Controller
         }
     }
 
-   
+    /**
+     * Delete image file from public folder
+     *
+     * @param string $filePath
+     * @return bool
+     */
+    private function deleteImage($filePath)
+    {
+        try {
+            if ($filePath) {
+                $fullPath = public_path($filePath);
+                if (file_exists($fullPath)) {
+                    unlink($fullPath);
+                    Log::info('Image deleted successfully: ' . $filePath);
+                    return true;
+                }
+            }
+            return false;
+        } catch (\Exception $e) {
+            Log::error('Image deletion failed: ' . $e->getMessage());
+            return false;
+        }
+    }
 }

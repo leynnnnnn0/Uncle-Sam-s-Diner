@@ -187,7 +187,7 @@ export default function Welcome() {
                     <div className="flex items-center gap-3">
                         <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
                             <DialogTrigger asChild>
-                                <button className="flex items-center gap-2 bg-white cursor-pointer hover:bg-white/30 transition sm:px-8 py-2 rounded-full text-primary font-medium text-xs sm:text-sm px-5">
+                                <button className="flex items-center gap-2 bg-white hover:bg-white/30 transition sm:px-8 py-2 rounded-full text-primary font-medium text-xs sm:text-sm px-5 cursor-pointer">
                                     Login
                                 </button>
                             </DialogTrigger>
