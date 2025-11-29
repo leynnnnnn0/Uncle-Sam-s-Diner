@@ -949,25 +949,25 @@ useEffect(() => {
               {/* Loyalty Card with Carousel */}
               <Card className="lg:col-span-2 border-gray-200">
                 <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-lg font-semibold flex items-center gap-3">{currentCard.name.toUpperCase()}</CardTitle>
+                  <CardTitle className="sm:text-lg text-sm font-semibold flex items-center gap-3">{currentCard.name.toUpperCase()}</CardTitle>
                   {cardTemplates.length > 1 && (
                     <div className="flex items-center gap-2">
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={prevCard}
-                        className="h-8 w-8 p-0"
+                        className="sm:h-8 sm:w-8 sm:p-0 size-4"
                       >
-                        <ChevronLeft className="h-4 w-4" />
+                        <ChevronLeft className="sm:h-4 sm:w-4" />
                       </Button>
-                      <span className="text-sm text-gray-500">
+                      <span className="sm:text-sm text-gray-500 text-xs">
                         {currentCardIndex + 1} / {cardTemplates.length}
                       </span>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={nextCard}
-                        className="h-8 w-8 p-0"
+                        className="sm:h-8 sm:w-8 sm:p-0"
                       >
                         <ChevronRight className="h-4 w-4" />
                       </Button>
@@ -1125,24 +1125,24 @@ useEffect(() => {
               <CardContent className="p-6 space-y-4">
                 {currentCardPerks.length > 0 ? (
                   currentCardPerks.map((perk) => (
-                    <div key={perk.id} className="flex items-center border-b gap-4 hover:bg-gray-50 p-3 rounded-lg transition-colors cursor-pointer">
+                    <div key={perk.id} className="flex flex-col items-start md:items-center md:flex-row border-b gap-4 hover:bg-gray-50 p-3 rounded-lg transition-colors cursor-pointer">
                       <div 
-                        className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white font-bold"
+                        className="md:w-12 md:h-12 size-8 rounded-xl flex items-center justify-center flex-shrink-0 text-white font-bold"
                         style={{ backgroundColor: perk.color }}
                       >
                         {perk.stampNumber}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-base text-black">{perk.reward}</h3>
+                        <h3 className="font-semibold sm:text-base text-sm text-black">{perk.reward}</h3>
                         <p className="text-xs text-gray-500">Unlock at {perk.stampNumber} stamps</p>
                         {perk.details && (
-                          <p className="text-sm text-gray-600 mt-1">{perk.details}</p>
+                          <p className="md:text-sm text-xs text-gray-600 mt-1">{perk.details}</p>
                         )}
                       </div>
                       <div className="text-right flex-shrink-0">
                         <div className="flex items-baseline gap-1">
-                          <span className="text-2xl font-bold text-black">{perk.stampNumber}</span>
-                          <span className="text-sm text-gray-500">Stamps</span>
+                          <span className="md:text-2xl text-lg font-bold text-black">{perk.stampNumber}</span>
+                          <span className="md:text-sm text-xs text-gray-500">Stamps</span>
                         </div>
                         {totalStamps >= perk.stampNumber && (
                           <Badge className="mt-2 bg-green-500 text-white hover:bg-green-600">
