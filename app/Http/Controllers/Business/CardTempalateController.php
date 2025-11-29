@@ -20,7 +20,7 @@ class CardTempalateController extends Controller
             }])
             ->latest()
             ->get();
-        
+
 
 
         return Inertia::render('Business/CardTemplate/Index', [
@@ -42,6 +42,9 @@ class CardTempalateController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (Auth::user()->email === 'business@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
         $validated = $request->validate([
             'logo' => 'nullable|string',
             'name' => 'required|string|max:255|unique:loyalty_cards,name,' . $id . ',id,business_id,' . Auth::user()->business->id,
@@ -134,7 +137,7 @@ class CardTempalateController extends Controller
                 'subheading' => $validated['subheading'] ?? null,
                 'stampsNeeded' => $validated['stampsNeeded'],
                 'mechanics' => $validated['mechanics'],
-                 'valid_until' => $validated['valid_until'],
+                'valid_until' => $validated['valid_until'],
                 'backgroundColor' => $validated['backgroundColor'] ?? '#FFFFFF',
                 'textColor' => $validated['textColor'] ?? '#000000',
                 'stampColor' => $validated['stampColor'] ?? '#FF0000',
@@ -210,6 +213,9 @@ class CardTempalateController extends Controller
 
     public function store(Request $request)
     {
+        if (Auth::user()->email === 'business@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
         $validated = $request->validate([
             'logo' => 'nullable|string',
             'name' => 'required|string|max:255|unique:loyalty_cards,name,NULL,id,business_id,' . Auth::user()->business->id,
@@ -292,6 +298,9 @@ class CardTempalateController extends Controller
 
     public function destroy($id)
     {
+        if (Auth::user()->email === 'business@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
         try {
             $loyaltyCard = Auth::user()->business->loyaltyCards()->findOrFail($id);
 

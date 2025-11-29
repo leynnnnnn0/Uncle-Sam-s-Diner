@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
            'flash' => [
             'success' => fn () => $request->session()->get('success'),
             'active_card_id' => fn () => $request->session()->get('active_card_id'),
+            'error' => fn() => $request->session()->get('error')
         ],
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],

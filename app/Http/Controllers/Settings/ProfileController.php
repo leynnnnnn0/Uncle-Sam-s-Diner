@@ -29,6 +29,9 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        if (Auth::user()->email === 'business@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -45,6 +48,9 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+         if (Auth::user()->email != 'sneakyfrekingbitch@gmail.com') {
+            return redirect()->back()->withErrors(['error' => 'Demo account cannot make changes.']);
+        }
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);

@@ -71,6 +71,10 @@ export default function Edit({ cardTemplate }) {
         toast.success("Updated Successfully.");
       },
       onError: (e) => {
+          if(e.error){
+            toast.error(e.error);
+            return;
+          }
         toast.success("An error occured while trying to create the loyalty card");
       }
     });

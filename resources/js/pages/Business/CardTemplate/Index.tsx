@@ -20,6 +20,7 @@ import AppLayout from "@/layouts/app-layout";
 import { Head, router } from "@inertiajs/react";
 import { Plus, Edit, Trash2, Eye, Sparkles, Award, AlertTriangle } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 
 export default function Index({ cardTemplates = [] }) {
@@ -38,7 +39,18 @@ export default function Index({ cardTemplates = [] }) {
 
   const confirmDelete = () => {
     if (templateToDelete) {
-      router.delete(`/business/card-templates/${templateToDelete}`);
+      router.delete(`/business/card-templates/${templateToDelete}`, {
+        onSuccess: () => {
+          toast.success("Deleted Successfully.");
+        },
+        onError: (e) => {
+          if(e.error){
+            toast.error(e.error);
+          }else {
+            console.log("An error occured while trying to delete the card template");
+          }
+        }
+      });
       setDeleteDialogOpen(false);
       setTemplateToDelete(null);
     }
@@ -343,12 +355,12 @@ export default function Index({ cardTemplates = [] }) {
               Delete Loyalty Card Template?
             </AlertDialogTitle>
             <AlertDialogDescription className="space-y-2">
-              <p className="font-semibold text-gray-900">
+              <span className="font-semibold text-gray-900">
                 Are you sure you want to delete this loyalty card template?
-              </p>
-              <p>
+              </span>
+              <span>
                 Customers who are already using this loyalty card might be shocked that it's gone. This action cannot be undone and will affect all existing customer cards using this template.
-              </p>
+              </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

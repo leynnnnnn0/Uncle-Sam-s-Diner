@@ -74,6 +74,10 @@ export default function Create() {
         toast.success('Loyalty Card Created Successfully.');
       },
       onError: (e) => {
+          if(e.error){
+            toast.error(e.error);
+            return;
+          }
         toast.error("Please fill up all the required fields");
         console.log(e);
       }
