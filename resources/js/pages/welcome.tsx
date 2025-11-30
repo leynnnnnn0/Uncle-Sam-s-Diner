@@ -261,7 +261,7 @@ export default function Welcome() {
                            
                         >
                             <div className="flex items-center justify-between gap-2">
-                                Try Demo
+                                Try on demo account
                                 <Play className='size-4'/>
                             </div>
                         </button>

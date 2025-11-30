@@ -28,7 +28,14 @@ class QRStudioController extends Controller
 {
     $busines = Auth::user()->business;
     $qrCode = $busines->qr_code;;
-   
+    
+    if(!$qrCode){
+        $qrCode = ModelsQrCode::create([
+            'business_id' => $busines->id,
+            'heading' => 'Taylora',
+            'subheading' => 'Join our loyalty program by scanning the QR code',
+        ]);
+    }
 
     $data = [
         'heading' => $qrCode->heading ?? 'Loyalty Program',

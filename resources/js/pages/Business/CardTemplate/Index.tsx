@@ -174,7 +174,7 @@ export default function Index({ cardTemplates = [] }) {
       <Head title="Card Templates" />
       <ModuleHeading title="Card Templates" description="List of your card templates">
         <Button onClick={() => router.visit('/business/card-templates/create')}>
-          <Plus className="mr-2 h-4 w-4" /> Create
+          <Plus className="h-4 w-4" /> Create New Template
         </Button>
       </ModuleHeading>
 

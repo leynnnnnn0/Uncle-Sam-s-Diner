@@ -10,6 +10,7 @@ use App\Http\Controllers\Business\StampCodeController;
 use App\Http\Controllers\Business\TicketController;
 use App\Http\Controllers\Customer\CustomerAuthController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
+use App\Http\Controllers\DocumentationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +23,13 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/documentation', [DocumentationController::class, 'index']);
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('business')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+     
 
         Route::get('/issue-stamps/generate-offline', [IssueStampController::class, 'generateOfflineStamps'])
             ->name('business.issue-stamp.generate-offline');
