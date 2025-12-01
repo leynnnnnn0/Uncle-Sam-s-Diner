@@ -538,13 +538,14 @@ export default function Welcome() {
 
                             {/* CTA Button */}
                             <div className="pt-6 lg:pt-8">
-                                <button 
-                                    onClick={() => setLoginDialogOpen(true)}
+                                <a 
+                                    href='/documentation'
+                                    target='_blank'
                                     className="w-full sm:w-auto font-semibold px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg cursor-pointer"
                                     style={{ backgroundColor: '#F4B942', color: '#ffffff' }}
                                 >
-                                    Get Started Now
-                                </button>
+                                    See full documentation
+                                </a>
                             </div>
                         </div>
                     </div>

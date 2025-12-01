@@ -95,7 +95,7 @@ export default function Index({
           />
           <SummaryBox 
             title="Stamps Given" 
-            subtitle="Total stamps used by customers" 
+            subtitle="Total stamps used by customers this month." 
             count={stampsUsedCountThisMonth} 
             percentage={percentageChangeOnStamps}
           />
