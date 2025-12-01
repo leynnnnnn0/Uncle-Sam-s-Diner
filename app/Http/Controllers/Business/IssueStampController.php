@@ -89,6 +89,7 @@ class IssueStampController extends Controller
     }
 
 
+   
    public function generateOfflineStamps(Request $request)
     {
         $loyaltyCardId = $request->input('id');
@@ -112,7 +113,9 @@ class IssueStampController extends Controller
                 'business_id' => $businessId,
                 'loyalty_card_id' => $loyaltyCardId, 
                 'code' => $code,
-                'is_offline_code' => true
+                'is_offline_code' => true,
+                'created_at' => now(),
+                'updated_at' => now()
             ];
 
             // Generate QR code and convert to base64
