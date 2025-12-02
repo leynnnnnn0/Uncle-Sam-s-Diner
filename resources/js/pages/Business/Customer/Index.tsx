@@ -141,12 +141,13 @@ export default function Index({ customers, filters }: Props) {
           {customers.data.length > 0 ? (
             customers.data.map((customer) => (
               <div
+              onClick={() => router.visit(`/business/customers/${customer.id}`)}
                 key={customer.id}
                 className="border rounded-lg p-4 bg-white shadow-sm space-y-3"
               >
                 <div>
                   <div className="text-xs text-gray-500 mb-1">Name</div>
-                  <div className="font-medium text-sm">{customer.users}</div>
+                  <div className="font-medium text-sm">{customer.username}</div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-500 mb-1">Email</div>

@@ -13,7 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { AwardIcon, BookOpen, Code2Icon, Folder, IdCard, LayoutGrid, QrCodeIcon, Stamp, StampIcon, TicketIcon, Users2Icon } from 'lucide-react';
+import { AwardIcon, BookOpen, Code2Icon, Folder, IdCard, LayoutGrid, QrCodeIcon, Stamp, StampIcon, StoreIcon, TicketIcon, Users2Icon } from 'lucide-react';
 import LOGO from '../../images/mainLogo.png';
 
 const mainNavItems: NavItem[] = [
@@ -22,6 +22,11 @@ const mainNavItems: NavItem[] = [
         href: '/business/dashboard',
         icon: LayoutGrid,
     },
+    //  {
+    //     title: 'Branches',
+    //     href: '/business/branches',
+    //     icon: StoreIcon,
+    // },
       {
         title: 'Issue Stamp',
         href: '/business/issue-stamp',
