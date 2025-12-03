@@ -351,13 +351,13 @@ function is(l) {
     const u = C;
     let k;
     s[8] === Symbol.for('react.memo_cache_sentinel')
-        ? ((k = e.jsx(se, { title: 'Card Templates' })), (s[8] = k))
+        ? ((k = e.jsx(se, { title: 'Loyalty Cards' })), (s[8] = k))
         : (k = s[8]);
     let L;
     s[9] === Symbol.for('react.memo_cache_sentinel')
         ? ((L = e.jsx(le, {
-              title: 'Card Templates',
-              description: 'List of your card templates',
+              title: 'Loyalty Cards',
+              description: 'List of your loyalty cards',
               children: e.jsxs(P, {
                   onClick: Se,
                   children: [
@@ -378,7 +378,7 @@ function is(l) {
                       e.jsx(Z, { className: 'h-4 w-4' }),
                       e.jsx(he, {
                           children:
-                              'No card templates yet. Create your first loyalty card template to get started!',
+                              'No loyalty cards yet. Create your first loyalty card template to get started!',
                       }),
                   ],
               })),

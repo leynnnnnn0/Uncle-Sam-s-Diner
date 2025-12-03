@@ -96,7 +96,7 @@ const D = [
                 { id: 'issue-stamp', label: 'Issue Stamp', icon: j },
                 { id: 'perk-claims', label: 'Perk Claims', icon: T },
                 { id: 'stamp-codes', label: 'Stamp Codes', icon: G },
-                { id: 'card-templates', label: 'Card Templates', icon: R },
+                { id: 'card-templates', label: 'Loyalty Cards', icon: R },
                 { id: 'customers', label: 'Customers', icon: L },
                 { id: 'qr-studio', label: 'QR Studio', icon: Q },
                 { id: 'tickets', label: 'Tickets', icon: S },
@@ -117,7 +117,7 @@ const D = [
                             items: [
                                 'Digital stamp card creation and management',
                                 'Real-time customer engagement tracking',
-                                'Customizable card templates',
+                                'Customizable loyalty cards',
                                 'QR code generation for easy stamp distribution',
                                 'Perk redemption system',
                                 'Customer management and analytics',
@@ -199,7 +199,7 @@ const D = [
                             content:
                                 'Design your first loyalty card that customers will use to collect stamps.',
                             steps: [
-                                'Navigate to "Card Templates" from the sidebar menu',
+                                'Navigate to "Loyalty Cards" from the sidebar menu',
                                 'Click "Create New Template"',
                                 'Enter card details: name, description, and reward information etc.',
                                 'Set the number of stamps required to earn a reward',
@@ -379,7 +379,7 @@ const D = [
                     ],
                 },
                 'card-templates': {
-                    title: 'Card Templates',
+                    title: 'Loyalty Cards',
                     description:
                         'Design and customize loyalty card layouts and rewards.',
                     sections: [

@@ -43,7 +43,7 @@ const mainNavItems: NavItem[] = [
         icon: Code2Icon,
     },
       {
-        title: 'Card Templates',
+        title: 'Loyalty Cards',
         href: '/business/card-templates',
         icon: IdCard,
     },

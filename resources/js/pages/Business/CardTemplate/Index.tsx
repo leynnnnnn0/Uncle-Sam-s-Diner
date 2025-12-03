@@ -171,8 +171,8 @@ export default function Index({ cardTemplates = [] }) {
 
   return (
     <AppLayout>
-      <Head title="Card Templates" />
-      <ModuleHeading title="Card Templates" description="List of your card templates">
+      <Head title="Loyalty Cards" />
+      <ModuleHeading title="Loyalty Cards" description="List of your loyalty cards">
         <Button onClick={() => router.visit('/business/card-templates/create')}>
           <Plus className="h-4 w-4" /> Create New Template
         </Button>
@@ -183,12 +183,12 @@ export default function Index({ cardTemplates = [] }) {
         <Alert className="mt-8">
           <Sparkles className="h-4 w-4" />
           <AlertDescription>
-            No card templates yet. Create your first loyalty card template to get started!
+            No loyalty cards yet. Create your first loyalty card template to get started!
           </AlertDescription>
         </Alert>
       )}
 
-      {/* Card Templates Grid */}
+      {/* Loyalty Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         {cardTemplates.map((template) => (
           <Card key={template.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">

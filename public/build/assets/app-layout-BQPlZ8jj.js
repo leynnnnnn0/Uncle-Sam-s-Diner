@@ -2619,7 +2619,7 @@ const hr = [
         { title: 'Issue Stamp', href: '/business/issue-stamp', icon: yt },
         { title: 'Perk Claims', href: '/business/perk-claims', icon: ot },
         { title: 'Stamp Codes', href: '/business/stamp-codes', icon: Et },
-        { title: 'Card Templates', href: '/business/card-templates', icon: kt },
+        { title: 'Loyalty Cards', href: '/business/card-templates', icon: kt },
         { title: 'Customers', href: '/business/customers', icon: Ht },
         { title: 'QR Studio', href: '/business/qr-studio', icon: St },
         { title: 'Tickets', href: '/business/tickets', icon: jt },

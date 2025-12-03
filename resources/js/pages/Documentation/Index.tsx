@@ -20,7 +20,7 @@ const Documentation = () => {
     { id: 'issue-stamp', label: 'Issue Stamp', icon: Stamp },
     { id: 'perk-claims', label: 'Perk Claims', icon: Gift },
     { id: 'stamp-codes', label: 'Stamp Codes', icon: Hash },
-    { id: 'card-templates', label: 'Card Templates', icon: CreditCard },
+    { id: 'card-templates', label: 'Loyalty Cards', icon: CreditCard },
     { id: 'customers', label: 'Customers', icon: Users },
     { id: 'qr-studio', label: 'QR Studio', icon: QrCode },
     { id: 'tickets', label: 'Tickets', icon: Ticket },
@@ -41,7 +41,7 @@ const Documentation = () => {
           items: [
             'Digital stamp card creation and management',
             'Real-time customer engagement tracking',
-            'Customizable card templates',
+            'Customizable loyalty cards',
             'QR code generation for easy stamp distribution',
             'Perk redemption system',
             'Customer management and analytics',
@@ -100,7 +100,7 @@ const Documentation = () => {
           title: 'Step 4: Create Your Loyalty Card Template',
           content: 'Design your first loyalty card that customers will use to collect stamps.',
           steps: [
-            'Navigate to "Card Templates" from the sidebar menu',
+            'Navigate to "Loyalty Cards" from the sidebar menu',
             'Click "Create New Template"',
             'Enter card details: name, description, and reward information etc.',
             'Set the number of stamps required to earn a reward',
@@ -251,7 +251,7 @@ const Documentation = () => {
       ]
     },
     'card-templates': {
-      title: 'Card Templates',
+      title: 'Loyalty Cards',
       description: 'Design and customize loyalty card layouts and rewards.',
       sections: [
         {
