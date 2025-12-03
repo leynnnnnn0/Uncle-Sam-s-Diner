@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Head } from '@inertiajs/react';
-import { Phone, Mail, Menu, Award, Gift, Tag, ChevronDown, QrCode, BarChart3, Palette, Wifi, WifiOff, Headphones, LogIn, Play } from 'lucide-react';
+import { Phone, Mail, Menu, Award, Gift, Tag, ChevronDown, QrCode, BarChart3, Palette, Wifi, WifiOff, Headphones, LogIn, Play, CheckCircle2, TrendingUp, Users } from 'lucide-react';
 import { Facebook, Instagram } from "lucide-react";
 import {
   Accordion,
@@ -145,7 +145,7 @@ export default function Welcome() {
                 }`}>
                     <div className="max-w-7xl mx-auto flex items-center justify-between">
                         <div className="flex items-center gap-2 flex-shrink-0">
-                            <img src={LOGO} alt="StampBayan - Digital Loyalty Card System Logo" className='h-10 w-32'/>
+                            <img src={LOGO} alt="StampBayan - Digital Loyalty Card System Logo" className='sm:h-10 sm:w-32 h-8 w-24'/>
                         </div>
 
                         <nav className={`hidden lg:flex items-center gap-4 xl:gap-8 transition-all duration-300 ${
@@ -280,32 +280,111 @@ export default function Welcome() {
                     </div>
                 </header>
 
-                {/* Main Content - Added semantic HTML for better SEO */}
-                <main className="relative z-10 px-4 sm:px-4 py-8 sm:py-12 lg:py-16 xl:py-20 pt-24 md:mt-16">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="text-center max-w-5xl mx-auto">
-                            {/* H1 is crucial for SEO - only one per page */}
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 sm:mb-8 px-4">
-                                Create a Modern Loyalty Program for Your Customers
-                            </h1>
-                            
-                            <p className="text-white/80 text-sm sm:text-base lg:text-lg mb-8 sm:mb-12 lg:mb-16 px-4 max-w-3xl mx-auto">
-                                Digital loyalty card system for Philippine businesses. Boost repeat customers with QR code stamping. Choose from bonus, discount, or combined rewards.
-                            </p>
+              <main className="relative z-10 px-4 sm:px-4 py-8 sm:py-12 lg:py-16 xl:py-20 pt-24 sm:mt-16">
+            <div className="sm:max-w-7xl sm:mx-auto">
+                <div className="text-center sm:max-w-5xl mx-auto leading-0">
+                    {/* H1 is crucial for SEO - only one per page */}
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-2 px-4">
+                        Stop Losing Customers to Competitors
+                    </h1>
+                    
+                    <p className="text-white/80 text-xs sm:text-base lg:text-lg mb-8 sm:mb-12 px-4 max-w-3xl mx-auto">
+                        Turn one-time buyers into loyal regulars with a digital loyalty program that actually works. No more lost punch cards. No more forgotten rewards.
+                    </p>
 
-                            <button 
-                                onClick={() => handleDemoClick()}
-                                className="text-primary cursor-pointer font-semibold px-5 sm:px-10 lg:px-12 py-2 sm:py-4 rounded-full sm:text-lg md:text-base text-xs transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg bg-white "
-                            >
-                                <div className="flex items-center justify-between gap-2">
-                                    Try on demo account
-                                    <Play className='size-4'/>
-                                </div>
-                            </button>
-                        </div>
+                    {/* Key Benefits List */}
+                    <div className="flex justify-center gap-4 sm:gap-8 mb-8 sm:mb-10 mx-auto text-white/90 flex-wrap">
+                        <p className="text-xs sm:text-base flex flex-col">
+                             <strong>✓ FREE for 30 days</strong>
+                             <span className='text-[10px] sm:text-xs'>See results before paying anything</span>
+                        </p>
+                        <p className="text-xs sm:text-base flex flex-col">
+                            <strong>✓ Set up in 5 minutes</strong>
+                              <span className='text-[10px] sm:text-xs'>Print QR code, start today</span>
+                        </p>
+                        <p className="text-xs sm:text-base flex flex-col">
+                            <strong>✓ ₱99/month after trial</strong>
+                              <span className='text-[10px] sm:text-xs'>Less than ₱4 per day</span>
+                        </p>
                     </div>
-                </main>
+                    <button 
+                        onClick={() => setLoginDialogOpen(true)}
+                        className="text-primary cursor-pointer font-semibold px-5 sm:px-10 lg:px-12 py-2 sm:py-4 rounded-full sm:text-lg md:text-base text-xs transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg bg-white"
+                    >
+                        <div className="flex flex-col items-center justify-between">
+                            Start Your FREE 30 Days
+                            <span className="sm:text-xs text-[8px]">No Credit Card Required</span>
+                        </div>
+                    </button>
 
+                    {/* Trust Indicators */}
+                    <div className="text-white/70 text-xs sm:text-sm mt-6">
+                        ✓ Cancel anytime  •  ✓ No setup fees  •  ✓ 24/7 support
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {/* Stats Section */}
+<section className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-[#f8f9fa]">
+    <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+                Why Loyalty Programs Work
+            </h2>
+            <p className="text-black/80 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto px-4">
+                The numbers speak for themselves
+            </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Stats Cards */}
+            <div className="bg-white/10 backdrop-blur-md shadow-lg rounded-2xl p-6 border border-white/20">
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-green-400/20 flex items-center justify-center">
+                        <TrendingUp className="w-6 h-6 text-green-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-black">67%</div>
+                        <div className="text-black/70 text-sm">More spending from loyal customers</div>
+                    </div>
+                </div>
+                <p className="text-black/60 text-xs">
+                    Studies show loyal customers spend significantly more than new ones
+                </p>
+            </div>
+
+            <div className="bg-white/10 shadow-lg backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-white-400/20 flex items-center justify-center">
+                        <Users className="w-6 h-6 text-white-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-black">5x</div>
+                        <div className="text-black/70 text-sm">More likely to return</div>
+                    </div>
+                </div>
+                <p className="text-black/60 text-xs">
+                    Customers with loyalty cards visit 5 times more often
+                </p>
+            </div>
+
+            <div className="bg-white/10 shadow-lg backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-yellow-400/20 flex items-center justify-center">
+                        <BarChart3 className="w-6 h-6 text-yellow-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-black">25-95%</div>
+                        <div className="text-black/70 text-sm">Profit increase potential</div>
+                    </div>
+                </div>
+                <p className="text-black/60 text-xs">
+                    Just 5% increase in retention can boost profits dramatically
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
                 {/* Benefits Section - Added semantic HTML */}
                 <section id="benefits" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-white">
                     <div className="max-w-7xl mx-auto">
@@ -541,7 +620,7 @@ export default function Welcome() {
                                 <a 
                                     href='/documentation'
                                     target='_blank'
-                                    className="w-full sm:w-auto font-semibold px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg cursor-pointer"
+                                    className="sm:w-auto font-semibold px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg cursor-pointer w-full"
                                     style={{ backgroundColor: '#F4B942', color: '#ffffff' }}
                                 >
                                     Full guide
