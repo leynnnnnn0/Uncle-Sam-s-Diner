@@ -277,7 +277,7 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
     <>
       <Head title="Staff Dashboard" />
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="min-h-screen bg-white">
         {/* Top Navigation */}
         <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -337,11 +337,11 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
 
           {/* Stats Cards */}
           <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg">
+            <Card className="shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-blue-100 text-sm font-medium">Total Claims</p>
+                    <p className="text-black text-sm font-medium">Total Claims</p>
                     <p className="text-4xl font-bold mt-2">{stats?.total || 0}</p>
                   </div>
                   <Award className="w-12 h-12 text-blue-200" />
@@ -349,11 +349,11 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white border-0 shadow-lg">
+            <Card className=" shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-green-100 text-sm font-medium">Available</p>
+                    <p className="text-black text-sm font-medium">Available</p>
                     <p className="text-4xl font-bold mt-2">{stats?.available || 0}</p>
                   </div>
                   <Sparkles className="w-12 h-12 text-green-200" />
@@ -361,11 +361,11 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white border-0 shadow-lg">
+            <Card className="shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-purple-100 text-sm font-medium">Redeemed</p>
+                    <p className="text-black text-sm font-medium">Redeemed</p>
                     <p className="text-4xl font-bold mt-2">{stats?.redeemed || 0}</p>
                   </div>
                   <Check className="w-12 h-12 text-purple-200" />
@@ -395,7 +395,7 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
             <TabsContent value="issue-stamp" className="space-y-6">
               {!code?.success ? (
                 <Card className="shadow-lg border-0">
-                  <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+                  <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <QrCode className="w-5 h-5" />
                       Generate New Stamp Code
@@ -436,7 +436,7 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
                       <Button
                         onClick={generateCode}
                         disabled={loading || cards.length === 0}
-                        className="h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                        className="h-12 bg-primary"
                       >
                         <QrCode className="w-5 h-5 mr-2" />
                         {loading ? "Generating..." : "Generate Code"}
@@ -526,7 +526,7 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
             {/* PERK CLAIMS TAB */}
             <TabsContent value="perk-claims" className="space-y-6">
               <Card className="shadow-lg border-0">
-                <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b">
+                <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award className="w-5 h-5" />
                     Customer Perk Claims
@@ -684,7 +684,7 @@ export default function Index({ code, cards = [], loyalty_card_id, perkClaims = 
             {/* STAMP CODES TAB */}
             <TabsContent value="stamp-codes" className="space-y-6">
               <Card className="shadow-lg border-0">
-                <CardHeader className="bg-gradient-to-r from-purple-50 to-violet-50 border-b">
+                <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Ticket className="w-5 h-5" />
                     Stamp Code History

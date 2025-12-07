@@ -326,7 +326,7 @@ export default function Welcome() {
         </main>
 
         {/* Stats Section */}
-<section className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-[#f8f9fa]">
+<section id="benefits" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-white">
     <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
@@ -385,72 +385,7 @@ export default function Welcome() {
         </div>
     </div>
 </section>
-                {/* Benefits Section - Added semantic HTML */}
-                <section id="benefits" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28 bg-white">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ color: '#333333' }}>
-                                Keep Your Customers & Grow Together
-                            </h2>
-                            <p className="text-gray-600 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto px-4">
-                                Say goodbye to paper stamps and hello to lasting relationships. Reward loyalty, build trust, and watch your business thrive.
-                            </p>
-                        </div>
-
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                            <article className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                    <Award className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
-                                </div>
-                                <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
-                                    Strengthen Relationships
-                                </h3>
-                                <p className="text-gray-600 text-sm lg:text-base">
-                                    Build lasting connections with your customers through personalized rewards and recognition.
-                                </p>
-                            </article>
-
-                            <article className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                    <Tag className="w-7 h-7 lg:w-8 lg:h-8 text-white"/>
-                                </div>
-                                <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
-                                    Amazing Discounts
-                                </h3>
-                                <p className="text-gray-600 text-sm lg:text-base">
-                                    Offer irresistible deals that keep customers coming back for more value.
-                                </p>
-                            </article>
-
-                            <article className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                    <Gift className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
-                                </div>
-                                <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
-                                    Free Rewards
-                                </h3>
-                                <p className="text-gray-600 text-sm lg:text-base">
-                                    Delight loyal customers with complimentary products and services they'll love.
-                                </p>
-                            </article>
-
-                            <article className="group p-6 lg:p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#F4B942' }}>
-                                    <svg className="w-7 h-7 lg:w-8 lg:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 4 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl lg:text-2xl font-bold mb-3" style={{ color: '#333333' }}>
-                                    Word of Mouth
-                                </h3>
-                                <p className="text-gray-600 text-sm lg:text-base">
-                                    Turn satisfied customers into brand ambassadors who spread the word to friends and family.
-                                </p>
-                            </article>
-                        </div>
-                    </div>
-                </section>
-
+        
                 {/* Features Section */}
                 <section id="features" className="relative z-10 px-4 sm:px-6 py-16 sm:py-20 lg:py-28" style={{ backgroundColor: '#f8f9fa' }}>
                     <div className="max-w-7xl mx-auto">
