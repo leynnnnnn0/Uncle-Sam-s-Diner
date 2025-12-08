@@ -397,7 +397,7 @@ export default function Welcome() {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-4">
-                        See It In Action
+                        See It In Action (No Need To Download)
                     </h2>
                     <p className="text-black/90 text-base sm:text-lg max-w-2xl mx-auto">
                         Watch how easy it is for both businesses and customers
@@ -466,29 +466,6 @@ export default function Welcome() {
                     </div>
                 </div>
 
-                {/* Key Benefits Bar */}
-                <div className="mt-12 bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                                <CheckCircle2 className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="text-white">
-                                <p className="font-bold text-lg">Very Easy to Use</p>
-                                <p className="text-white/80 text-sm">Set up in minutes, not hours</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                                <CheckCircle2 className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="text-white">
-                                <p className="font-bold text-lg">No App Download</p>
-                                <p className="text-white/80 text-sm">Works in any browser instantly</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
