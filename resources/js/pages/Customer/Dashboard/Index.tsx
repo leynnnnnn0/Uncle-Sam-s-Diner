@@ -1129,7 +1129,7 @@ useEffect(() => {
             </div>
 
             <Card className="border-gray-200">
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="space-y-4">
                 {currentCardPerks.length > 0 ? (
                   currentCardPerks.map((perk) => (
                     <div key={perk.id} className="flex flex-col items-start md:items-center md:flex-row border-b gap-4 hover:bg-gray-50 p-3 rounded-lg transition-colors cursor-pointer">
