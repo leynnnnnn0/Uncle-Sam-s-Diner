@@ -2,7 +2,8 @@ import { useState } from 'react';
 import ModuleHeading from "@/components/module-heading";
 import AppLayout from "@/layouts/app-layout";
 import { Head, useForm } from "@inertiajs/react";
-import { Upload, ImageIcon, Plus, Trash2, Sparkles, Terminal, LucideMessageCircleWarning } from 'lucide-react';
+import { Upload, ImageIcon, Plus, Trash2, Sparkles, Terminal, LucideMessageCircleWarning, AlertTriangle } from 'lucide-react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -63,22 +64,28 @@ export default function Edit({ cardTemplate }) {
   const getPerkForStamp = (stampNumber) => {
     return data.perks.find(p => p.stampNumber === stampNumber);
   };
+const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  setShowConfirmDialog(true);
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    put(`/business/card-templates/${cardTemplate.id}`,{
-      onSuccess: () => {
-        toast.success("Updated Successfully.");
-      },
-      onError: (e) => {
-          if(e.error){
-            toast.error(e.error);
-            return;
-          }
-        toast.success("An error occured while trying to create the loyalty card");
+const confirmUpdate = () => {
+  put(`/business/card-templates/${cardTemplate.id}`, {
+    onSuccess: () => {
+      toast.success("Updated Successfully.");
+      setShowConfirmDialog(false);
+    },
+    onError: (e) => {
+      if(e.error){
+        toast.error(e.error);
+      } else {
+        toast.error("An error occurred while trying to update the loyalty card");
       }
-    });
-  };
+      setShowConfirmDialog(false);
+    }
+  });
+};
 
   const StampShape = ({ shape, isFilled, isReward, rewardText, color, details }) => {
     const fillColor = isFilled ? (data.stampFilledColor || color) : data.stampEmptyColor;
@@ -716,6 +723,50 @@ export default function Edit({ cardTemplate }) {
         {/* Spacer for mobile fixed button */}
         <div className="md:hidden h-20"></div>
       </form>
+
+       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-amber-500" />
+              Confirm Template Update
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-2">
+              <p className="font-medium text-foreground">
+                This will update the loyalty card template for all existing customers.
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>All active customer cards will reflect these changes immediately</li>
+                <li>Perk configurations will be updated across all cards</li>
+                <li>Design changes will apply to all existing cards</li>
+              </ul>
+              <p className="text-sm pt-2">
+                Are you sure you want to proceed with these changes?
+              </p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={processing}>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmUpdate}
+              disabled={processing}
+              className="bg-primary hover:bg-primary/90"
+            >
+              {processing ? (
+                <>
+                  <span className="animate-spin mr-2">⏳</span>
+                  Updating...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Yes, Update Template
+                </>
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AppLayout>
   );
 }
