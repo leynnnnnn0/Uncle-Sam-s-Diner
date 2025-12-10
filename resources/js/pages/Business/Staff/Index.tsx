@@ -200,13 +200,13 @@ export default function Index({ staffs, filters }: Props) {
                                             >
                                                 <Pencil className="w-4 h-4" />
                                             </Button>
-                                            <Button
+                                            {/* <Button
                                                 variant="ghost"
                                                 size="icon"
                                                 onClick={() => setDeleteConfirm(branch)}
                                             >
                                                 <Trash2 className="w-4 h-4 text-red-600" />
-                                            </Button>
+                                            </Button> */}
                                         </div>
                                     </td>
                                 </tr>
