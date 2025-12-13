@@ -14,6 +14,7 @@ use App\Http\Controllers\Customer\DashboardController as CustomerDashboardContro
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Staff\DashboardController as StaffDashboardController;
 use App\Http\Controllers\Staff\StaffAuthController;
+use App\Http\Controllers\SuggestionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::get('/sitemap.xml', function () {
     return response()->view('sitemap', compact('pages'))
         ->header('Content-Type', 'text/xml');
 });
+
+Route::post('/suggestions', [SuggestionController::class, 'store'])->name('suggestions.store');
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
