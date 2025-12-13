@@ -165,7 +165,7 @@ export default function Index({ qrUrl, qrCode, errors }: IndexProps) {
                       {data.heading}
                     </h1>
 
-                    {/* Subheading */}
+                    {/* Subheading */}    
                     <p className="text-center text-[10px] md:text-xs mb-4 sm:mb-6 lg:mb-8 whitespace-pre-line px-2" style={{ color: data.textColor }}>
                       {data.subheading}
                     </p>

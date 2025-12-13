@@ -9,6 +9,7 @@ use App\Http\Controllers\Business\IssueStampController;
 use App\Http\Controllers\Business\PerkClaimController;
 use App\Http\Controllers\Business\StampCodeController;
 use App\Http\Controllers\Business\TicketController;
+use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\Customer\CustomerAuthController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 use App\Http\Controllers\DocumentationController;
@@ -29,6 +30,8 @@ Route::get('/sitemap.xml', function () {
     return response()->view('sitemap', compact('pages'))
         ->header('Content-Type', 'text/xml');
 });
+
+Route::post('/api/chat', [ChatBotController::class, 'chat'])->middleware('auth');
 
 Route::post('/suggestions', [SuggestionController::class, 'store'])->name('suggestions.store');
 
