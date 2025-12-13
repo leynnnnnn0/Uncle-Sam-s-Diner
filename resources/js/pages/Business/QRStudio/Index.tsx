@@ -161,18 +161,18 @@ export default function Index({ qrUrl, qrCode, errors }: IndexProps) {
                   )}
                   <div className="relative h-full flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 border-4 sm:border-8" style={{ borderColor: data.textColor }}>
                     {/* Heading */}
-                    <h1 className="text-3xl sm:text-4xl lg:text-6xl font-serif italic mb-4 sm:mb-6 lg:mb-8 text-center" style={{ color: data.textColor }}>
+                    <h1 className="text-xl font-serif italic mb-2 lg:text-4xl text-center" style={{ color: data.textColor }}>
                       {data.heading}
                     </h1>
 
                     {/* Subheading */}
-                    <p className="text-center text-xs sm:text-sm lg:text-lg mb-4 sm:mb-6 lg:mb-8 whitespace-pre-line px-2" style={{ color: data.textColor }}>
+                    <p className="text-center text-[10px] md:text-xs mb-4 sm:mb-6 lg:mb-8 whitespace-pre-line px-2" style={{ color: data.textColor }}>
                       {data.subheading}
                     </p>
 
                     {/* QR Code Placeholder */}
                     <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 bg-white p-2 mb-4 sm:mb-6 lg:mb-8 shadow-lg">
-                      <div className="w-full h-full bg-gray-300 flex items-center justify-center text-xs text-gray-600">
+                      <div className="text-center w-full h-full bg-gray-300 flex items-center justify-center text-xs text-gray-600">
                         QR Code will show here
                       </div>
                     </div>

@@ -15,8 +15,8 @@
             box-sizing: border-box;
         }
         
-        body {
-            font-family: 'DejaVu Sans', sans-serif;
+        body { 
+            font-family: BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
             width: 100%;
