@@ -140,6 +140,13 @@ export default function Welcome() {
         <>
             {/* SEO HEAD TAGS - THIS IS THE MOST IMPORTANT PART */}
           <Head>
+
+                <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
     <title>StampBayan - Free Digital Loyalty Card System for Philippine Businesses</title>
     <meta name="title" content="StampBayan - Free Digital Loyalty Card System" />
     <meta name="description" content="FREE digital loyalty card system for Philippine businesses. Replace punch cards with QR scanning. No fees, unlimited customers. Start in 5 minutes." />
