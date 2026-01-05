@@ -106,7 +106,7 @@ class DashboardController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to fetch business data',
+                'message' => $e->getMessage(),
                 'error' => $e->getMessage()
             ], 500);
         }
