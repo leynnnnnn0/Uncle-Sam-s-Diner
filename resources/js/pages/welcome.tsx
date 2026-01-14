@@ -15,7 +15,19 @@ import seventh from '../../../public/images/7.jpg';
 
 import { router } from '@inertiajs/react';
 import eight from '../../../public/images/8.jpg';
+import menu1 from "../../../public/images/menu1.jpg";
+import menu2 from '../../../public/images/menu2.jpg';
+import menu3 from '../../../public/images/menu3.jpg';
+import menu4 from '../../../public/images/menu4.jpg';
+import menu5 from '../../../public/images/menu5.jpg';
 
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/components/ui/carousel';
 export default function Welcome() {
     return (
         <div className="min-h-screen bg-white font-sans text-black selection:bg-black selection:text-white">
@@ -65,6 +77,52 @@ export default function Welcome() {
                     />
                 </div>
             </main>
+
+            <section className="bg-white px-6 py-24">
+                <div className="mx-auto max-w-7xl">
+                    <div className="mb-12 text-center">
+                        <h2 className="mb-4 font-serif text-5xl md:text-6xl">
+                            Featured{' '}
+                            <span className="text-gray-400 italic">Menu</span>
+                        </h2>
+                        <p className="text-gray-500">
+                            Handpicked favorites from our collection
+                        </p>
+                    </div>
+
+                    <Carousel
+                        opts={{
+                            align: 'start',
+                            loop: true,
+                        }}
+                        className="w-full"
+                    >
+                        <CarouselContent className="-ml-2 md:-ml-4">
+                            {[menu1, menu2, menu3, menu4, menu5].map(
+                                (img, index) => (
+                                    <CarouselItem
+                                        key={index}
+                                        className="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3"
+                                    >
+                                        <div className="group relative overflow-hidden rounded-2xl border border-black/5 bg-gray-50 p-1">
+                                            <div className="aspect-[3/4] overflow-hidden rounded-xl">
+                                                <img
+                                                    src={img}
+                                                    alt={`Menu item ${index + 1}`}
+                                                    className="h-full w-full object-cover  transition-all duration-700 group-hover:scale-110 group-hover:grayscale-0"
+                                                />
+                                            </div>
+                                           
+                                        </div>
+                                    </CarouselItem>
+                                ),
+                            )}
+                        </CarouselContent>
+                        <CarouselPrevious className="left-0 -translate-x-1/2 border-black/10 bg-white hover:bg-black hover:text-white" />
+                        <CarouselNext className="right-0 translate-x-1/2 border-black/10 bg-white hover:bg-black hover:text-white" />
+                    </Carousel>
+                </div>
+            </section>
 
             {/* Section 2: How It Works - Re-aligned & Balanced */}
             <section className="bg-gray-50 px-6 py-24">
