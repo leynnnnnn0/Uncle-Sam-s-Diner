@@ -433,8 +433,11 @@ useEffect(() => {
 
 
     if(stampImage){
-      stampImageUrl = `/${stampImage}`;
+      stampImageUrl = getMainDomain() + `/${stampImage}`;
     }
+
+    console.log("STAMP IMAGE URL:", stampImageUrl);
+    
 
     const shapes: Record<string, JSX.Element> = {
       circle: (
@@ -540,7 +543,7 @@ useEffect(() => {
                 style={{
                     backgroundColor: cardTemplate.backgroundColor,
                     backgroundImage: backgroundImageUrl
-                        ? `${getMainDomain()}${backgroundImageUrl}`
+                        ? `url(${getMainDomain()}${backgroundImageUrl})`
                         : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
