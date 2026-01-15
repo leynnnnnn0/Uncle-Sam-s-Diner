@@ -295,61 +295,53 @@ export default function Welcome() {
                     </div>
                 </section>
 
-                {/* Section 2: How It Works - Re-aligned & Balanced */}
+                {/* Section 2: How It Works - Improved Grid Layout */}
                 <section className="bg-gray-50 px-6 py-24">
-                    <div className="mx-auto max-w-6xl">
-                        <div className="grid items-center gap-16 lg:grid-cols-5">
-                            {/* Image side - Now smaller and more focused */}
-                            <div className="flex justify-center lg:col-span-2">
-                                <div className="relative rounded-3xl border border-black/5 bg-white p-4 shadow-sm">
-                                    <img
-                                        src={StepArt}
-                                        alt="How to use"
-                                        className="w-full max-w-[320px] rounded-2xl object-contain"
-                                    />
-                                </div>
-                            </div>
+                    <div className="mx-auto max-w-7xl">
+                        <div className="mb-16 text-center">
+                            <h2 className="font-serif text-5xl md:text-6xl">
+                                Simple Steps. <br />
+                                <span className="text-gray-400">
+                                    Endless Perks.
+                                </span>
+                            </h2>
+                        </div>
 
-                            {/* Steps side */}
-                            <div className="space-y-10 lg:col-span-3">
-                                <h2 className="mb-8 font-serif text-4xl md:text-5xl">
-                                    Simple Steps. <br />
-                                    <span className="text-gray-400">
-                                        Endless Perks.
+                        <div className="grid gap-8 md:grid-cols-3">
+                            {[
+                                {
+                                    step: '01',
+                                    title: 'Scan QR',
+                                    desc: 'Find our standee at the counter and scan with your phone.',
+                                },
+                                {
+                                    step: '02',
+                                    title: 'Register',
+                                    desc: 'Create your profile in seconds to start tracking progress.',
+                                },
+                                {
+                                    step: '03',
+                                    title: 'Earn Stamps',
+                                    desc: 'Collect stamps with every purchase and unlock free treats.',
+                                },
+                            ].map((item, i) => (
+                                <div
+                                    key={i}
+                                    className="group relative rounded-3xl border border-black/5 bg-white p-10 transition-all hover:-translate-y-1 hover:shadow-xl"
+                                >
+                                    <span className="mb-6 block font-serif text-6xl text-gray-100 transition-colors group-hover:text-black/10">
+                                        {item.step}
                                     </span>
-                                </h2>
-                                {[
-                                    {
-                                        step: '01',
-                                        title: 'Scan QR',
-                                        desc: 'Find our standee at the counter and scan with your phone.',
-                                    },
-                                    {
-                                        step: '02',
-                                        title: 'Register',
-                                        desc: 'Create your profile in seconds to start tracking progress.',
-                                    },
-                                    {
-                                        step: '03',
-                                        title: 'Earn Stamps',
-                                        desc: 'Collect stamps with every purchase and unlock free treats.',
-                                    },
-                                ].map((item, i) => (
-                                    <div key={i} className="group flex gap-8">
-                                        <span className="font-serif text-5xl text-gray-200 transition-colors group-hover:text-black">
-                                            {item.step}
-                                        </span>
-                                        <div className="pt-2">
-                                            <h3 className="mb-1 text-lg font-bold tracking-tight uppercase">
-                                                {item.title}
-                                            </h3>
-                                            <p className="max-w-sm leading-relaxed text-gray-500">
-                                                {item.desc}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    <h3 className="mb-3 text-xl font-bold tracking-tight uppercase">
+                                        {item.title}
+                                    </h3>
+                                    <p className="leading-relaxed text-gray-500">
+                                        {item.desc}
+                                    </p>
+                                    {/* Decorative Accent */}
+                                    <div className="mt-6 h-1 w-12 bg-black/5 transition-all group-hover:w-20 group-hover:bg-black" />
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </section>
