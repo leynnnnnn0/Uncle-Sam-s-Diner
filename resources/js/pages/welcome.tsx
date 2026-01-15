@@ -190,7 +190,7 @@ export default function Welcome() {
                         Est. 2026 — Uncle Sam's Diner
                     </p>
                     <p className="mt-4 text-sm font-medium opacity-80">
-                        Burgers • Drinks • Fries
+                        Burgers • Drinks • Fries and More
                     </p>
                 </footer>
             </div>
